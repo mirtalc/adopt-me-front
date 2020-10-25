@@ -3,6 +3,10 @@
     <h1>>> Animals component, still WIP.</h1>
     <div class="container">
       <div v-for="animal in APIData" :key="animal.id" class="card">
+        <img
+          src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
+          alt="Placeholder"
+        />
         <div>Name: {{ animal.name }}</div>
         <div>Adoption status: {{ animal.status }}</div>
         <div>Animal type: (pending)</div>
