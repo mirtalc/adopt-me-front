@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Animals from './views/Animals'
+import Home from './views/Home'
 
 // Add vue-router to our middleware
 Vue.use(VueRouter)
@@ -11,6 +12,11 @@ export default new VueRouter({
     routes: [
         {
             path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/animals',
             name: 'animals',
             component: Animals
         }
