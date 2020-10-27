@@ -38,6 +38,11 @@ export default {
         console.warn("Error trying to receive data: ", error);
       });
   },
+  onIdle() {
+    this.$store.dispatch("userLogout").then(() => {
+      this.$router.push({ name: "login" });
+    });
+  },
 };
 </script>
 
