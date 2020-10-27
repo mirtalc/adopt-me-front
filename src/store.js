@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import { getAPI } from './axios-api'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
+    plugins: [
+        createPersistedState({
+            storage: window.sessionStorage
+        })
+    ],
     state: {
         accessToken: null,
         refreshToken: null,
