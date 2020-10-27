@@ -17,19 +17,22 @@
 
 <script>
 import { getAPI } from "../axios-api";
+import { mapState } from "vuex";
+
 export default {
   name: "Animals",
-  data() {
-    return {
-      APIData: [],
-    };
-  },
+  computed: mapState(["APIData"]),
   created() {
     getAPI
-      .get("/animals/")
+      .get("/animals/", {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.accessToken}`,
+        },
+      })
       .then((response) => {
         console.log("Axios has received data: ", response.data);
-        this.APIData = response.data;
+        this.$store.state.APIData = response.data;
+        console.log(this.$store.state.APIData);
       })
       .catch((error) => {
         console.warn("Error trying to receive data: ", error);
