@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './routes.js'
 import store from './store'
 
+
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {

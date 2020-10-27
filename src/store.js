@@ -16,9 +16,13 @@ export default new Vuex.Store({
         APIData: '',
     },
     mutations: {
-        updateStorage(state, { access, refresh }) {
+        setTokens(state, { access, refresh }) {
             state.accessToken = access
             state.refreshToken = refresh
+        },
+        deleteTokens(state){
+            state.accessToken = null
+            state.refreshToken = null
         }
     },
     getters: {
@@ -34,7 +38,7 @@ export default new Vuex.Store({
                     password: credentials.password
                 })
                 .then(response => {
-                    context.commit('updateStorage', {
+                    context.commit('setTokens', {
                         access: response.data.access,
                         refresh: response.data.refresh
                     })
@@ -44,6 +48,11 @@ export default new Vuex.Store({
                     reject(error)
                 })
             })
+        },
+        userLogout(context){
+            if(context.getters.isLogged){
+                context.commit('deleteTokens')
+            }
         }
     }
 })
