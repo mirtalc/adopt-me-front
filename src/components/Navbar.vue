@@ -3,13 +3,18 @@
     <ul>
       <router-link :to="{ name: 'home' }"><li>Home</li></router-link>
       <router-link :to="{ name: 'animals' }"><li>Animals</li></router-link>
+      <router-link :to="{ name: 'logout' }" v-if="!!accessToken">
+        <li>Logout</li>
+      </router-link>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Navbar",
+  computed: mapState(["accessToken"]),
 };
 </script>
 
