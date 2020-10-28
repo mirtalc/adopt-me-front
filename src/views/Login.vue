@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Sign in :)</p>
+    <p class="py-5">Sign in :)</p>
 
     <form v-on:submit.prevent="login">
       <div class="form-group">
@@ -11,7 +11,7 @@
       </div>
       <button type="submit">Login</button>
     </form>
-    <p v-if="incorrectCredentials">
+    <p v-if="incorrectCredentials" class="text-red-500">
       Error logging in. Please, check your user and password!
     </p>
   </div>

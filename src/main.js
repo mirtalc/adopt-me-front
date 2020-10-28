@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './routes.js'
 import store from './store'
 import IdleVue from 'idle-vue'
+import './assets/styles/index.css'
 
 const eventsHub = new Vue()
 
