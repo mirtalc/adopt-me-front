@@ -16,11 +16,4 @@ export default {
 };
 </script>
 
-<style>
-body {
-  font-family: Helvetica, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #e5e5e5;
-}
-</style>
+<style></style>

@@ -1,15 +1,34 @@
 <template>
-  <div>
-    <p class="py-5">Sign in :)</p>
+  <div
+    class="sm:max-w-xl sm:mx-auto sm:my-16 bg-indigo-300 border rounded-lg p-8 text-gray-800"
+  >
+    <p class="pl-6">
+      Welcome! <br />
+      Please, enter your credentials.
+    </p>
 
-    <form v-on:submit.prevent="login">
-      <div class="form-group">
-        <input type="text" name="username" id="user" v-model="username" />
+    <form v-on:submit.prevent="login" class="m-auto text-center mt-8">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" v-model="username" />
       </div>
-      <div class="form-group">
-        <input type="password" name="password" id="pass" v-model="password" />
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+        />
       </div>
-      <button type="submit">Login</button>
+      <div>
+        <button
+          type="submit"
+          class="bg-indigo-400 hover:bg-indigo-500 py-4 w-full mt-8 text-xl rounded-lg"
+        >
+          Log me in!
+        </button>
+      </div>
     </form>
     <p v-if="incorrectCredentials" class="text-red-500">
       Error logging in. Please, check your user and password!
@@ -46,13 +65,16 @@ export default {
 };
 </script>
 
-<style scoped>
-.form-group {
-  border: 1px solid black;
-  padding: 10px;
+<style scoped lang="postcss">
+.field {
+  @apply p-4 inline-block;
 }
 
-button {
-  /** */
+label {
+  @apply min-w-32 inline-block;
+}
+
+input {
+  @apply w-48 rounded bg-blue-100;
 }
 </style>
