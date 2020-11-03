@@ -1,3 +1,36 @@
 body {
   @apply bg-indigo-100 font-sans;
+  background-image: url("../img/pets.jpg");
+}
+
+input {
+  @apply px-2 py-1 w-48 rounded bg-blue-100;
+}
+
+label {
+  @apply min-w-32 inline-block;
+}
+
+.squared-container {
+  @apply border rounded-lg p-8 text-gray-800 bg-indigo-200;
+}
+
+.centered-container {
+  @apply m-auto text-center mt-2;
+}
+
+.big-button {
+  @apply bg-indigo-400 py-4 w-full mt-8 text-xl rounded-lg outline-none text-white;
+}
+
+.big-button:focus {
+  @apply outline-none;
+}
+
+.error-message {
+  @apply text-red-700 font-medium;
+}
+
+.secondary {
+  @apply text-gray-600;
 }

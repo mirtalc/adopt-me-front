@@ -42,7 +42,7 @@ export default new Vuex.Store({
                         access: response.data.access,
                         refresh: response.data.refresh
                     })
-                    resolve('done')
+                    resolve()
                 })
                 .catch(error => {
                     reject(error)
@@ -53,6 +53,21 @@ export default new Vuex.Store({
             if(context.getters.isLogged){
                 context.commit('deleteTokens')
             }
+        },
+        userRegister(context, credentials){
+            return new Promise((resolve, reject) => {
+                getAPI.post('/register/', {
+                    username: credentials.username,
+                    password: credentials.password
+                })
+                .then(response => {
+                    console.log('register OK response: ', response)
+                    resolve()
+                })
+                .catch(error => {
+                    reject(error)
+                })
+            })
         }
     }
 })

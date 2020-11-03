@@ -4,6 +4,7 @@ import Animals from './views/Animals'
 import Login from './views/Login'
 import Logout from './views/Logout'
 import Home from './views/Home'
+import Register from './views/Register'
 
 // Add vue-router to our middleware
 Vue.use(VueRouter)
@@ -29,6 +30,11 @@ export default new VueRouter({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
         },
         {
             path: '/logout',
