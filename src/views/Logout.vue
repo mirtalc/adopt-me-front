@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import routesInfo from '../constants/routesInfo'
+import { routesInfo } from '../constants/routesInfo'
 export default {
   created() {
     this.$store.dispatch('userLogout').then(() => {

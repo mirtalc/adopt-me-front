@@ -18,13 +18,13 @@
 <script>
 import { getAPI } from '../axios-api'
 import { mapState } from 'vuex'
-import routesInfo from '../constants/routesInfo'
+import { routesInfo } from '../constants/routesInfo'
 
 export default {
   name: 'Animals',
-  data: () => {
+  data: () => ({
     routesInfo
-  },
+  }),
   computed: mapState(['APIData']),
   created() {
     getAPI

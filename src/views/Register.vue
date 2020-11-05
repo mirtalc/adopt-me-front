@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import routesInfo from '../constants/routesInfo'
+import { routesInfo } from '../constants/routesInfo'
 export default {
   name: 'Register',
   data() {
