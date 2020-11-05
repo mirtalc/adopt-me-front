@@ -7,7 +7,11 @@
       <router-link :to="{ name: routesInfo.animals.name }">
         <li class="p-3 hover:bg-gray-600">{{ routesInfo.animals.text }}</li>
       </router-link>
-      <router-link :to="{ name: routesInfo.logout.name }" v-if="!!accessToken" class="ml-auto">
+      <router-link
+        :to="{ name: routesInfo.logout.name }"
+        v-if="!!accessToken"
+        class="ml-auto"
+      >
         <li class="p-3 hover:bg-gray-600">{{ routesInfo.logout.text }}</li>
       </router-link>
     </ul>
@@ -15,15 +19,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
-import { routesInfo } from "../constants/routesInfo"
+import { mapState } from 'vuex'
+import { routesInfo } from '../constants/routesInfo'
 
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   data: () => ({
-    routesInfo,
+    routesInfo
   }),
-  computed: mapState(["accessToken"]),
+  computed: mapState(['accessToken'])
 }
 </script>
 

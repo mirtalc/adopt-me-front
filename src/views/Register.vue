@@ -10,14 +10,21 @@
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" v-model="password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+        />
       </div>
       <button type="submit" class="big-button hover:bg-indigo-500">
         Create my user!
       </button>
       <div v-show="shouldShowErrors" class="error-message mt-4">
         <ul>
-          <li v-for="inputError in inputErrors" :key="inputError.id">— {{ inputError }}</li>
+          <li v-for="inputError in inputErrors" :key="inputError.id">
+            — {{ inputError }}
+          </li>
         </ul>
         <p v-show="registerError">{{ registerError }}</p>
       </div>
@@ -34,11 +41,11 @@
 <script>
 import routesInfo from '../constants/routesInfo'
 export default {
-  name: "Register",
+  name: 'Register',
   data() {
     return {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       inputErrors: [],
       registerError: null,
       routesInfo
@@ -50,7 +57,7 @@ export default {
     },
     shouldShowErrors: function() {
       return this.hasInputErrors || this.registerError
-    },
+    }
   },
   methods: {
     checkAndRegister() {
@@ -60,37 +67,41 @@ export default {
       if (!this.hasInputErrors) this.register()
     },
     checkValues() {
-      if (!this.username) this.inputErrors.push("Username field may not be empty")
+      if (!this.username)
+        this.inputErrors.push('Username field may not be empty')
       if (!this.password) {
-        this.inputErrors.push("Password field may not be empty")
+        this.inputErrors.push('Password field may not be empty')
       } else if (this.password.length < 3) {
-        this.inputErrors.push("Password must be at least 3 characters long")
+        this.inputErrors.push('Password must be at least 3 characters long')
       }
     },
     register() {
       this.$store
-        .dispatch("userRegister", {
+        .dispatch('userRegister', {
           username: this.username,
-          password: this.password,
+          password: this.password
         })
         .then(() => this.processRegisterOk())
-        .catch((error) => this.processRegisterError(error))
+        .catch(error => this.processRegisterError(error))
     },
     processRegisterOk() {
-      alert("Success! New user registered. You'll be redirected to our login page.")
+      alert(
+        "Success! New user registered. You'll be redirected to our login page."
+      )
       this.$router.push({ name: routesInfo.login.name })
     },
     processRegisterError(error) {
-      let user_exists_error = "A user with that username already exists"
+      let user_exists_error = 'A user with that username already exists'
       let error_string = JSON.stringify(error.response.data)
       if (error_string.includes(user_exists_error)) {
         this.registerError = `Error: ${user_exists_error}. Try another one!`
       } else {
-        this.registerError = "Unknown error; please try again later. More info at Console."
+        this.registerError =
+          'Unknown error; please try again later. More info at Console.'
       }
-      console.warn("Error while registering user: ", error)
-    },
-  },
+      console.warn('Error while registering user: ', error)
+    }
+  }
 }
 </script>
 

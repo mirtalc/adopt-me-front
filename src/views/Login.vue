@@ -10,14 +10,21 @@
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" v-model="password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+        />
       </div>
       <button type="submit" class="big-button hover:bg-indigo-500">
         Log me in!
       </button>
       <div v-show="shouldShowErrors" class="error-message mt-4">
         <ul>
-          <li v-for="inputError in inputErrors" :key="inputError.id">— {{ inputError }}</li>
+          <li v-for="inputError in inputErrors" :key="inputError.id">
+            — {{ inputError }}
+          </li>
         </ul>
         <p v-show="loginError">{{ loginError }}</p>
       </div>
@@ -32,17 +39,17 @@
 </template>
 
 <script>
-import { routesInfo } from "../constants/routesInfo"
+import { routesInfo } from '../constants/routesInfo'
 
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       inputErrors: [],
       loginError: null,
-      routesInfo,
+      routesInfo
     }
   },
   computed: {
@@ -51,7 +58,7 @@ export default {
     },
     shouldShowErrors: function() {
       return this.hasInputErrors || this.loginError
-    },
+    }
   },
   methods: {
     checkAndLogin() {
@@ -60,31 +67,34 @@ export default {
     },
     checkValues() {
       this.inputErrors = []
-      if (!this.username) this.inputErrors.push("Username field may not be empty")
-      if (!this.password) this.inputErrors.push("Password field may not be empty")
+      if (!this.username)
+        this.inputErrors.push('Username field may not be empty')
+      if (!this.password)
+        this.inputErrors.push('Password field may not be empty')
     },
     login() {
       this.$store
-        .dispatch("userLogin", {
+        .dispatch('userLogin', {
           username: this.username,
-          password: this.password,
+          password: this.password
         })
         .then(() => this.processLoginOk())
-        .catch((error) => this.processLoginError(error))
+        .catch(error => this.processLoginError(error))
     },
     processLoginOk() {
       this.$router.push({ name: routesInfo.animals.name })
     },
     processLoginError(error) {
       let error_code = error.response.data.error_code
-      if (error_code == "no_active_account") {
-        this.loginError = "Error: Incorrect user or password"
+      if (error_code == 'no_active_account') {
+        this.loginError = 'Error: Incorrect user or password'
       } else {
-        this.loginError = "Unknown error; please try again later. More info at Console."
+        this.loginError =
+          'Unknown error; please try again later. More info at Console.'
       }
-      console.warn("Error while logging in: ", error)
-    },
-  },
+      console.warn('Error while logging in: ', error)
+    }
+  }
 }
 </script>
 

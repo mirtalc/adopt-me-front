@@ -16,37 +16,37 @@
 </template>
 
 <script>
-import { getAPI } from "../axios-api"
-import { mapState } from "vuex"
+import { getAPI } from '../axios-api'
+import { mapState } from 'vuex'
 import routesInfo from '../constants/routesInfo'
 
 export default {
-  name: "Animals",
+  name: 'Animals',
   data: () => {
     routesInfo
   },
-  computed: mapState(["APIData"]),
+  computed: mapState(['APIData']),
   created() {
     getAPI
-      .get("/animals/", {
+      .get('/animals/', {
         headers: {
-          Authorization: `Bearer ${this.$store.state.accessToken}`,
-        },
+          Authorization: `Bearer ${this.$store.state.accessToken}`
+        }
       })
-      .then((response) => {
-        console.log("Axios has received data: ", response.data)
+      .then(response => {
+        console.log('Axios has received data: ', response.data)
         this.$store.state.APIData = response.data
         console.log(this.$store.state.APIData)
       })
-      .catch((error) => {
-        console.warn("Error trying to receive data: ", error)
+      .catch(error => {
+        console.warn('Error trying to receive data: ', error)
       })
   },
   onIdle() {
-    this.$store.dispatch("userLogout").then(() => {
+    this.$store.dispatch('userLogout').then(() => {
       this.$router.push({ name: routesInfo.logout.name })
     })
-  },
+  }
 }
 </script>
 
