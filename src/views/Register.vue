@@ -42,20 +42,18 @@
 import { routesInfo } from '../constants/routesInfo'
 export default {
   name: 'Register',
-  data() {
-    return {
-      username: '',
-      password: '',
-      inputErrors: [],
-      registerError: null,
-      routesInfo
-    }
-  },
+  data: () => ({
+    username: '',
+    password: '',
+    inputErrors: [],
+    registerError: null,
+    routesInfo
+  }),
   computed: {
-    hasInputErrors: function() {
+    hasInputErrors() {
       return this.inputErrors.length > 0
     },
-    shouldShowErrors: function() {
+    shouldShowErrors() {
       return this.hasInputErrors || this.registerError
     }
   },

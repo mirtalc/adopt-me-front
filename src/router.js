@@ -17,7 +17,7 @@ const routes = [
     name: routesInfo.animals.name,
     component: Animals,
     meta: {
-        requiresLogin: true
+      requiresLogin: true
     }
   },
   {
