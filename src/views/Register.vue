@@ -23,7 +23,7 @@
       </div>
       <div class="mt-20 secondary">
         Already a member? You can log in
-        <router-link :to="{ name: 'login' }">
+        <router-link :to="{ name: routesInfo.login.name }">
           <span class="underline font-bold">here</span>
         </router-link>
       </div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import routesInfo from '../constants/routesInfo'
 export default {
   name: "Register",
   data() {
@@ -40,6 +41,7 @@ export default {
       password: "",
       inputErrors: [],
       registerError: null,
+      routesInfo
     }
   },
   computed: {
@@ -76,7 +78,7 @@ export default {
     },
     processRegisterOk() {
       alert("Success! New user registered. You'll be redirected to our login page.")
-      this.$router.push({ name: "login" })
+      this.$router.push({ name: routesInfo.login.name })
     },
     processRegisterError(error) {
       let user_exists_error = "A user with that username already exists"
