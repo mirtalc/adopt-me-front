@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import { getAPI } from './axios-api'
+import { http } from './infrastructure/axios-api'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -33,7 +33,7 @@ export default new Vuex.Store({
   actions: {
     userLogin(context, credentials) {
       return new Promise((resolve, reject) => {
-        getAPI.post('/token/', {
+        http.post('/token/', {
           username: credentials.username,
           password: credentials.password
         })
@@ -56,7 +56,7 @@ export default new Vuex.Store({
     },
     userRegister(context, credentials) {
       return new Promise((resolve, reject) => {
-        getAPI.post('/register/', {
+        http.post('/register/', {
           username: credentials.username,
           password: credentials.password
         })

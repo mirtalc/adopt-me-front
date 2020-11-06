@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { getAPI } from '../axios-api'
+import { http } from '../infrastructure/axios-api'
 import { mapState } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
 
@@ -27,7 +27,9 @@ export default {
   }),
   computed: mapState(['APIData']),
   created() {
-    getAPI
+    // http_headers
+    //   .get('/animals/')
+    http
       .get('/animals/', {
         headers: {
           Authorization: `Bearer ${this.$store.state.accessToken}`

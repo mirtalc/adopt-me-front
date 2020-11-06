@@ -40,6 +40,7 @@
 
 <script>
 import { routesInfo } from '../constants/routesInfo'
+import authUtils from '../infrastructure/authentication'
 
 export default {
   name: 'Login',
@@ -80,6 +81,7 @@ export default {
         .catch(error => this.processLoginError(error))
     },
     processLoginOk() {
+      authUtils.setAccessToken(this.$store.state.accessToken)
       this.$router.push({ name: routesInfo.animals.name })
     },
     processLoginError(error) {
