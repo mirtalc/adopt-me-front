@@ -1,13 +1,14 @@
 import axios from 'axios'
 import authUtils from '../infrastructure/authentication'
+import { fullApiEndpoints } from '../constants/apiEndpoints'
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: fullApiEndpoints.backendServer(),
   timeout: 1000,
 })
 
 const instance_headers = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: fullApiEndpoints.backendServer(),
   timeout: 1000,
 })
 

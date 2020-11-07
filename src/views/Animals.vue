@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import { http_headers } from '../infrastructure/axios-api'
 import { mapState } from 'vuex'
+import { http_headers } from '../infrastructure/axios-api'
+import { apiEndpoints } from '../constants/apiEndpoints'
 import { routesInfo } from '../constants/routesInfo'
 
 export default {
@@ -28,7 +29,7 @@ export default {
   computed: mapState(['APIData']),
   created() {
     http_headers
-      .get('/animals/')
+      .get(apiEndpoints.animals)
       .then(response => {
         console.log('Axios has received data: ', response.data)
         this.$store.state.APIData = response.data
