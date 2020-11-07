@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { http } from '../infrastructure/axios-api'
+import { http_headers } from '../infrastructure/axios-api'
 import { mapState } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
 
@@ -27,14 +27,8 @@ export default {
   }),
   computed: mapState(['APIData']),
   created() {
-    // http_headers
-    //   .get('/animals/')
-    http
-      .get('/animals/', {
-        headers: {
-          Authorization: `Bearer ${this.$store.state.accessToken}`
-        }
-      })
+    http_headers
+      .get('/animals/')
       .then(response => {
         console.log('Axios has received data: ', response.data)
         this.$store.state.APIData = response.data
