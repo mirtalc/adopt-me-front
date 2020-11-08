@@ -20,14 +20,7 @@
       <button type="submit" class="big-button hover:bg-indigo-500">
         Log me in!
       </button>
-      <div v-show="shouldShowErrors" class="error-message mt-4">
-        <ul>
-          <li v-for="inputError in inputErrors" :key="inputError.id">
-            — {{ inputError }}
-          </li>
-        </ul>
-        <p v-show="loginError">{{ loginError }}</p>
-      </div>
+      <FormErrors :input-errors="inputErrors" :submitError="loginError" />
       <div class="mt-20 secondary">
         Still not a member? You can register
         <InlineLink :routeName="routesInfo.register.name" :text="'here'" />
@@ -38,13 +31,15 @@
 
 <script>
 import InlineLink from '../components/InlineLink'
+import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
 import authUtils from '../infrastructure/authentication'
 
 export default {
   name: 'Login',
   components: {
-    InlineLink
+    InlineLink,
+    FormErrors
   },
   data: () => ({
     username: '',
@@ -55,18 +50,20 @@ export default {
   }),
   computed: {
     hasInputErrors() {
-      return this.inputErrors.length > 0
-    },
-    shouldShowErrors() {
-      return this.hasInputErrors || this.loginError
+      return !!this.inputErrors.length
     }
   },
   methods: {
+    cleanErrors() {
+      this.inputErrors = []
+      this.loginError = null
+    },
     checkAndLogin() {
       this.checkValues()
       if (!this.hasInputErrors) this.login()
     },
     checkValues() {
+      this.cleanErrors()
       this.inputErrors = []
       if (!this.username)
         this.inputErrors.push('Username field may not be empty')
@@ -84,7 +81,7 @@ export default {
     },
     processLoginOk() {
       authUtils.setAccessToken(this.$store.state.accessToken)
-      this.$router.push({ name: routesInfo.animals.name })
+      this.redirectToAnimals()
     },
     processLoginError(error) {
       let error_code = error.response.data.error_code
@@ -95,6 +92,9 @@ export default {
           'Unknown error; please try again later. More info at Console.'
       }
       console.warn('Error while logging in: ', error)
+    },
+    redirectToAnimals() {
+      this.$router.push({ name: routesInfo.animals.name })
     }
   }
 }

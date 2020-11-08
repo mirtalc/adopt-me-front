@@ -20,14 +20,7 @@
       <button type="submit" class="big-button hover:bg-indigo-500">
         Create my user!
       </button>
-      <div v-show="shouldShowErrors" class="error-message mt-4">
-        <ul>
-          <li v-for="inputError in inputErrors" :key="inputError.id">
-            — {{ inputError }}
-          </li>
-        </ul>
-        <p v-show="registerError">{{ registerError }}</p>
-      </div>
+      <FormErrors :input-errors="inputErrors" :submitError="registerError" />
       <div class="mt-20 secondary">
         Already a member? You can log in
         <InlineLink :routeName="routesInfo.login.name" :text="'here'" />
@@ -38,11 +31,13 @@
 
 <script>
 import InlineLink from '../components/InlineLink'
+import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
 export default {
   name: 'Register',
   components: {
-    InlineLink
+    InlineLink,
+    FormErrors
   },
   data: () => ({
     username: '',
@@ -53,20 +48,20 @@ export default {
   }),
   computed: {
     hasInputErrors() {
-      return this.inputErrors.length > 0
-    },
-    shouldShowErrors() {
-      return this.hasInputErrors || this.registerError
+      return !!this.inputErrors.length
     }
   },
   methods: {
-    checkAndRegister() {
+    cleanErrors() {
       this.inputErrors = []
-      this.registerError = null
+      this.loginError = null
+    },
+    checkAndRegister() {
       this.checkValues()
       if (!this.hasInputErrors) this.register()
     },
     checkValues() {
+      this.cleanErrors()
       if (!this.username)
         this.inputErrors.push('Username field may not be empty')
       if (!this.password) {
