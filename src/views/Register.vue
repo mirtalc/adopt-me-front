@@ -30,18 +30,20 @@
       </div>
       <div class="mt-20 secondary">
         Already a member? You can log in
-        <router-link :to="{ name: routesInfo.login.name }">
-          <span class="underline font-bold">here</span>
-        </router-link>
+        <InlineLink :routeName="routesInfo.login.name" :text="'here'" />
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import InlineLink from '../components/InlineLink'
 import { routesInfo } from '../constants/routesInfo'
 export default {
   name: 'Register',
+  components: {
+    InlineLink
+  },
   data: () => ({
     username: '',
     password: '',
