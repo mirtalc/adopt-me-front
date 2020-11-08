@@ -14,7 +14,7 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     refreshToken: null,
-    APIData: '',
+    animals: '',
   },
   mutations: {
     setTokens(state, { access, refresh }) {

@@ -4,6 +4,11 @@ export const routesInfo = {
         name: 'Animals',
         text: 'All animals',
     },
+    animalCreate: {
+        path: '/animals-new',
+        name: 'AnimalCreate',
+        text: 'Create a new animal',
+    },
     home: {
         path: '/',
         name: 'Home',

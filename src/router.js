@@ -4,6 +4,7 @@ import Login from './views/Login'
 import Logout from './views/Logout'
 import Home from './views/Home'
 import Register from './views/Register'
+import AnimalCreate from './views/AnimalCreate'
 import { routesInfo } from './constants/routesInfo'
 
 const routes = [
@@ -34,6 +35,11 @@ const routes = [
     path: routesInfo.register.path,
     name: routesInfo.register.name,
     component: Register
+  },
+  {
+    path: routesInfo.animalCreate.path,
+    name: routesInfo.animalCreate.name,
+    component: AnimalCreate
   },
 ]
 

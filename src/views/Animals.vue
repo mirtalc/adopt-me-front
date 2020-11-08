@@ -1,8 +1,20 @@
 <template>
   <div class="animals">
-    <h1>>> Animals component, still WIP.</h1>
+    <div>
+      <p>Here you can see all of our animals!</p>
+      <p>In the future, we'll implement filters by animal type, or state</p>
+
+      <div class="my-4">
+        For now, you can
+        <InlineLink
+          :routeName="routesInfo.animalCreate.name"
+          :text="'register a new animal'"
+        />
+        in our database (even if you are not an ADMIN)
+      </div>
+    </div>
     <div class="container grid-cols-1 sm:grid-cols-2">
-      <div v-for="animal in APIData" :key="animal.id" class="card">
+      <div v-for="animal in animals" :key="animal.id" class="card">
         <img
           src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
           alt="Placeholder"
@@ -20,20 +32,24 @@ import { mapState } from 'vuex'
 import { http_headers } from '../infrastructure/axios-api'
 import { apiEndpoints } from '../constants/apiEndpoints'
 import { routesInfo } from '../constants/routesInfo'
+import InlineLink from '../components/InlineLink'
 
 export default {
   name: 'Animals',
   data: () => ({
     routesInfo
   }),
-  computed: mapState(['APIData']),
+  components: {
+    InlineLink
+  },
+  computed: mapState(['animals']),
   created() {
     http_headers
       .get(apiEndpoints.animals)
       .then(response => {
         console.log('Axios has received data: ', response.data)
-        this.$store.state.APIData = response.data
-        console.log(this.$store.state.APIData)
+        this.$store.state.animals = response.data
+        console.log(this.$store.state.animals)
       })
       .catch(error => {
         console.warn('Error trying to receive data: ', error)
