@@ -1,6 +1,6 @@
 <template>
   <div class="squared-container sm:max-w-xl sm:mx-auto my-8 sm:my-16">
-    <p>Welcome back! <span class="ml-4">\(ᵔᵕᵔ)/</span></p>
+    <p class="title">Welcome back! <span class="ml-4">\(ᵔᵕᵔ)/</span></p>
     <p>Please, enter your credentials.</p>
 
     <form @submit.prevent="checkAndLogin" class="centered-container">

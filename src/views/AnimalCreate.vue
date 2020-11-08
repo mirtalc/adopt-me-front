@@ -1,6 +1,6 @@
 <template>
   <div class="squared-container sm:max-w-xl sm:mx-auto my-8 sm:my-16">
-    <p class="text-xl">Register a new animal</p>
+    <p class="title">Register a new animal</p>
     <p>Enter the details of the new animal</p>
 
     <form @submit.prevent="checkAndSubmit" class="centered-container">

@@ -1,6 +1,6 @@
 <template>
   <div class="squared-container sm:max-w-xl sm:mx-auto my-8 sm:my-16">
-    <p>Welcome to our web!<span class="ml-4"> ♥‿♥ </span></p>
+    <p class="title">Welcome to our web!<span class="ml-4"> ♥‿♥ </span></p>
     <p>Please, fill in these fields in order to create a new user.</p>
 
     <form @submit.prevent="checkAndRegister" class="centered-container">
@@ -34,6 +34,7 @@ import InlineLink from '../components/InlineLink'
 import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
+
 export default {
   name: 'Register',
   components: {
