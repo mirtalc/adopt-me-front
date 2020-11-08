@@ -10,28 +10,20 @@
         :placeholderText="'Pet name'"
         @inputEvent="handleChange($event)"
       />
-      <div class="text-field">
-        <select v-model="selectedType" class="select">
-          <option disabled value="">Animal type</option>
-          <option
-            v-for="type in animalTypes"
-            :key="type.id"
-            :value="type.value"
-            >{{ type.text }}</option
-          >
-        </select>
-      </div>
-      <div class="text-field">
-        <select v-model="selectedStatus" class="select">
-          <option disabled value="">Adoption status</option>
-          <option
-            v-for="status in adoptionStatuses"
-            :key="status.id"
-            :value="status.value"
-            >{{ status.text }}</option
-          >
-        </select>
-      </div>
+      <SelectInput
+        :name="'selectedType'"
+        :value="selectedType"
+        :disabledText="'Animal type'"
+        :options="animalTypes"
+        @inputEvent="handleChange($event)"
+      />
+      <SelectInput
+        :name="'selectedStatus'"
+        :value="selectedStatus"
+        :disabledText="'Adoption status'"
+        :options="adoptionStatuses"
+        @inputEvent="handleChange($event)"
+      />
       <button type="submit" class="big-button hover:bg-indigo-500">
         Create pet {{ animalName }} {{ selectedType }} {{ selectedStatus }}
       </button>
@@ -43,12 +35,14 @@
 <script>
 import FormErrors from '../components/FormErrors'
 import TextInput from '../components/TextInput'
+import SelectInput from '../components/SelectInput'
 
 export default {
   name: 'AnimalCreate',
   components: {
     FormErrors,
-    TextInput
+    TextInput,
+    SelectInput
   },
   data: () => ({
     animalName: '',
