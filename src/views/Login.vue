@@ -4,19 +4,19 @@
     <p>Please, enter your credentials.</p>
 
     <form @submit.prevent="checkAndLogin" class="centered-container">
-      <div class="field">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" v-model="username" />
-      </div>
-      <div class="field">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-        />
-      </div>
+      <TextInput
+        :name="'username'"
+        :value="username"
+        :labelText="'Username'"
+        @inputEvent="handleChange($event)"
+      />
+      <TextInput
+        :name="'password'"
+        :type="'password'"
+        :value="password"
+        :labelText="'Password'"
+        @inputEvent="handleChange($event)"
+      />
       <button type="submit" class="big-button hover:bg-indigo-500">
         Log me in!
       </button>
@@ -31,6 +31,7 @@
 
 <script>
 import InlineLink from '../components/InlineLink'
+import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
 import authUtils from '../infrastructure/authentication'
@@ -39,6 +40,7 @@ export default {
   name: 'Login',
   components: {
     InlineLink,
+    TextInput,
     FormErrors
   },
   data: () => ({
@@ -54,6 +56,9 @@ export default {
     }
   },
   methods: {
+    handleChange(payload) {
+      this[payload.targetName] = payload.targetValue
+    },
     cleanErrors() {
       this.inputErrors = []
       this.loginError = null

@@ -4,19 +4,19 @@
     <p>Please, fill in these fields in order to create a new user.</p>
 
     <form @submit.prevent="checkAndRegister" class="centered-container">
-      <div class="field">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" v-model="username" />
-      </div>
-      <div class="field">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          v-model="password"
-        />
-      </div>
+      <TextInput
+        :name="'username'"
+        :value="username"
+        :labelText="'Username'"
+        @inputEvent="handleChange($event)"
+      />
+      <TextInput
+        :name="'password'"
+        :type="'password'"
+        :value="password"
+        :labelText="'Password'"
+        @inputEvent="handleChange($event)"
+      />
       <button type="submit" class="big-button hover:bg-indigo-500">
         Create my user!
       </button>
@@ -31,12 +31,14 @@
 
 <script>
 import InlineLink from '../components/InlineLink'
+import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
 export default {
   name: 'Register',
   components: {
     InlineLink,
+    TextInput,
     FormErrors
   },
   data: () => ({
@@ -52,6 +54,9 @@ export default {
     }
   },
   methods: {
+    handleChange(payload) {
+      this[payload.targetName] = payload.targetValue
+    },
     cleanErrors() {
       this.inputErrors = []
       this.loginError = null
@@ -83,7 +88,7 @@ export default {
       alert(
         "Success! New user registered. You'll be redirected to our login page."
       )
-      this.$router.push({ name: routesInfo.login.name })
+      this.redirectToLogin()
     },
     processRegisterError(error) {
       let user_exists_error = 'A user with that username already exists'
@@ -95,6 +100,9 @@ export default {
           'Unknown error; please try again later. More info at Console.'
       }
       console.warn('Error while registering user: ', error)
+    },
+    redirectToLogin() {
+      this.$router.push({ name: routesInfo.login.name })
     }
   }
 }

@@ -4,14 +4,12 @@
     <p>Enter the details of the new animal</p>
 
     <form @submit.prevent="checkAndSubmit" class="centered-container">
-      <div class="text-field">
-        <input
-          type="text"
-          id="animalName"
-          v-model="animalName"
-          placeholder="Pet name"
-        />
-      </div>
+      <TextInput
+        :name="'animalName'"
+        :value="animalName"
+        :placeholderText="'Pet name'"
+        @inputEvent="handleChange($event)"
+      />
       <div class="text-field">
         <select v-model="selectedType" class="select">
           <option disabled value="">Animal type</option>
@@ -35,7 +33,7 @@
         </select>
       </div>
       <button type="submit" class="big-button hover:bg-indigo-500">
-        Create pet
+        Create pet {{ animalName }} {{ selectedType }} {{ selectedStatus }}
       </button>
       <FormErrors :input-errors="inputErrors" :submitError="submitError" />
     </form>
@@ -44,11 +42,13 @@
 
 <script>
 import FormErrors from '../components/FormErrors'
+import TextInput from '../components/TextInput'
 
 export default {
   name: 'AnimalCreate',
   components: {
-    FormErrors
+    FormErrors,
+    TextInput
   },
   data: () => ({
     animalName: '',
@@ -72,6 +72,9 @@ export default {
     }
   },
   methods: {
+    handleChange(payload) {
+      this[payload.targetName] = payload.targetValue
+    },
     cleanErrors() {
       this.inputErrors = []
       this.loginError = null
