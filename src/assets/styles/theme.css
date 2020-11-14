@@ -1,5 +1,5 @@
 body {
-  @apply bg-indigo-200 font-sans;
+  @apply bg-indigo-100 font-sans;
   background-image: url('../img/pattern.png');
 }
 
@@ -21,7 +21,7 @@ label {
 }
 
 .squared-container {
-  @apply border rounded-md p-8 text-gray-800 bg-indigo-200;
+  @apply border p-8 text-gray-800 bg-indigo-200;
 }
 
 .centered-container {
@@ -50,4 +50,8 @@ label {
 
 .title {
   @apply text-xl font-bold my-2;
+}
+
+.bg-pets {
+  background-image: url('../img/pets.png');
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="squared-container sm:max-w-xl sm:mx-auto my-8 sm:my-16">
+  <div class="squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl">
     <p class="title">Welcome back! <span class="ml-4">\(ᵔᵕᵔ)/</span></p>
     <p>Please, enter your credentials.</p>
 

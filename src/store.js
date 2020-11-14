@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
-import { http } from './infrastructure/axios-api'
+import { http, http_headers } from './infrastructure/axios-api'
 import { apiEndpoints } from './constants/apiEndpoints'
 
 Vue.use(Vuex)
@@ -14,7 +14,7 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     refreshToken: null,
-    animals: '',
+    animals: ''
   },
   mutations: {
     setTokens(state, { access, refresh }) {
@@ -34,10 +34,11 @@ export default new Vuex.Store({
   actions: {
     userLogin(context, credentials) {
       return new Promise((resolve, reject) => {
-        http.post(apiEndpoints.login, {
-          username: credentials.username,
-          password: credentials.password
-        })
+        http
+          .post(apiEndpoints.login, {
+            username: credentials.username,
+            password: credentials.password
+          })
           .then(response => {
             context.commit('setTokens', {
               access: response.data.access,
@@ -57,15 +58,33 @@ export default new Vuex.Store({
     },
     userRegister(context, credentials) {
       return new Promise((resolve, reject) => {
-        http.post(apiEndpoints.register, {
-          username: credentials.username,
-          password: credentials.password
-        })
+        http
+          .post(apiEndpoints.register, {
+            username: credentials.username,
+            password: credentials.password
+          })
           .then(response => {
             console.log('register OK response: ', response)
             resolve()
           })
           .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    animalCreate(context, formData) {
+      return new Promise((resolve, reject) => {
+        http_headers
+          .post(apiEndpoints.animals, {
+            name: formData.name,
+            status: formData.status,
+            type: formData.type
+          })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            console.warn('Error trying to post data: ', error)
             reject(error)
           })
       })

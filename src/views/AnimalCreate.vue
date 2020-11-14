@@ -1,5 +1,7 @@
 <template>
-  <div class="squared-container sm:max-w-xl sm:mx-auto my-8 sm:my-16">
+  <div
+    class="bg-pets custom squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl"
+  >
     <p class="title">Register a new animal</p>
     <p>Enter the details of the new animal</p>
 
@@ -36,6 +38,7 @@
 import FormErrors from '../components/FormErrors'
 import TextInput from '../components/TextInput'
 import SelectInput from '../components/SelectInput'
+import { routesInfo } from '../constants/routesInfo'
 
 export default {
   name: 'AnimalCreate',
@@ -57,7 +60,7 @@ export default {
     adoptionStatuses: [
       { text: 'Adopted', value: 'ADOP' },
       { text: 'Deceased', value: 'RIP' },
-      { text: 'pendingggg', value: 'PEN' }
+      { text: 'Available', value: 'AVAIL' }
     ] //TODO obtain from backend
   }),
   computed: {
@@ -87,7 +90,28 @@ export default {
         this.inputErrors.push('You must choose a valid adoption status')
     },
     submit() {
-      alert('//Todo when backend is prepared')
+      this.$store
+        .dispatch('animalCreate', {
+          name: this.animalName,
+          status: this.selectedStatus,
+          type: this.selectedTyped
+        })
+        .then(() => this.processSubmitOk())
+        .catch(error => this.processSubmitError(error))
+    },
+    processSubmitOk() {
+      alert(
+        "Success! Animal registered. You'll be redirected to the animal list."
+      )
+      this.redirectToAllAnimals()
+    },
+    processSubmitError(error) {
+      this.submitError =
+        'Unknown error; please try again later. More info at Console.'
+      console.warn('Error while registering animal: ', error)
+    },
+    redirectToAllAnimals() {
+      this.$router.push({ name: routesInfo.animals.name })
     }
   }
 }
