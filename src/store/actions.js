@@ -59,13 +59,13 @@ export default {
         })
     })
   },
-  fetchAnimals(context) {
+  fetchAnimals({ commit }) {
     return new Promise((resolve, reject) => {
       http_headers
         .get(apiEndpoints.animals)
         .then(response => {
           console.log('Axios has received data: ', response.data)
-          context.commit('setAnimals', response.data)
+          commit('setAnimals', response.data)
           resolve(response)
         })
         .catch(error => {
