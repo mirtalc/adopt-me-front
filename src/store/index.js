@@ -13,9 +13,12 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     refreshToken: null,
-    animals: ''
+    animals: []
   },
   mutations: {
+    setAnimals(state, payload) {
+      state.animals = payload
+    },
     setTokens(state, { access, refresh }) {
       state.accessToken = access
       state.refreshToken = refresh
@@ -26,6 +29,13 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    availableAnimals(state) {
+      let filtered = []
+      if (state.animals.length) {
+        filtered = state.animals.filter(animal => animal.status === 'AVAIL')
+      }
+      return filtered
+    },
     isLogged(state) {
       return state.accessToken != null
     }

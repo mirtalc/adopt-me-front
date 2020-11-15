@@ -58,5 +58,20 @@ export default {
           reject(error)
         })
     })
+  },
+  fetchAnimals(context) {
+    return new Promise((resolve, reject) => {
+      http_headers
+        .get(apiEndpoints.animals)
+        .then(response => {
+          console.log('Axios has received data: ', response.data)
+          context.commit('setAnimals', response.data)
+          resolve(response)
+        })
+        .catch(error => {
+          console.warn('Error trying to receive data: ', error)
+          reject(error)
+        })
+    })
   }
 }

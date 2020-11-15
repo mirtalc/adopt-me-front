@@ -13,8 +13,21 @@
         in our database (even if you are not an ADMIN)
       </div>
     </div>
+    <img v-if="loading" class="mx-auto" src="../assets/img/loading.gif" />
     <div class="container grid-cols-1 sm:grid-cols-2">
       <div v-for="animal in animals" :key="animal.id" class="card">
+        <img
+          src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
+          alt="Placeholder"
+        />
+        <div>Name: {{ animal.name }}</div>
+        <div>Adoption status: {{ animal.status }}</div>
+        <div>Animal type: (pending)</div>
+      </div>
+    </div>
+    <p>Only available</p>
+    <div class="container grid-cols-1 sm:grid-cols-2">
+      <div v-for="animal in availableAnimals" :key="animal.id" class="card">
         <img
           src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
           alt="Placeholder"
@@ -28,32 +41,29 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { http_headers } from '../infrastructure/axios-api'
-import { apiEndpoints } from '../constants/apiEndpoints'
 import { routesInfo } from '../constants/routesInfo'
 import InlineLink from '../components/InlineLink'
 
 export default {
   name: 'Animals',
   data: () => ({
-    routesInfo
+    routesInfo,
+    loading: false
   }),
   components: {
     InlineLink
   },
-  computed: mapState(['animals']),
+  computed: {
+    animals() {
+      return this.$store.state.animals
+    },
+    availableAnimals() {
+      return this.$store.getters.availableAnimals
+    }
+  },
   created() {
-    http_headers
-      .get(apiEndpoints.animals)
-      .then(response => {
-        console.log('Axios has received data: ', response.data)
-        this.$store.state.animals = response.data
-        console.log(this.$store.state.animals)
-      })
-      .catch(error => {
-        console.warn('Error trying to receive data: ', error)
-      })
+    this.loading = true
+    this.$store.dispatch('fetchAnimals').finally(() => (this.loading = false))
   },
   onIdle() {
     this.$store.dispatch('userLogout').then(() => {
