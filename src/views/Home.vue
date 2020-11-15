@@ -1,8 +1,6 @@
 <template>
   <div class="page">
     <h1>Pets that are available for adopting!</h1>
-    <img v-if="loading" class="mx-auto" src="../assets/img/loading.gif" />
-
     <div class="grid-container grid-cols-1 sm:grid-cols-2">
       <div v-for="animal in availableAnimals" :key="animal.id" class="card">
         <img

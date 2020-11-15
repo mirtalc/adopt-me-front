@@ -5,6 +5,7 @@ import Logout from './views/Logout'
 import Home from './views/Home'
 import Register from './views/Register'
 import AnimalCreate from './views/AnimalCreate'
+import NotFound from './views/errors/NotFound'
 import { routesInfo } from './constants/routesInfo'
 
 const routes = [
@@ -41,6 +42,7 @@ const routes = [
     name: routesInfo.animalCreate.name,
     component: AnimalCreate
   },
+  { path: '*', component: NotFound }
 ]
 
 const router = new VueRouter({
