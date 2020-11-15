@@ -1,6 +1,11 @@
+/* Tag styles */
 body {
   @apply bg-indigo-100 font-sans;
   background-image: url('../img/pattern.png');
+}
+
+img {
+  @apply mx-auto p-4;
 }
 
 input,
@@ -20,6 +25,13 @@ label {
   @apply min-w-32 inline-block;
 }
 
+/* Class styles */
+/* (pseudo)layouts */
+.grid-container {
+  max-width: 1000px;
+  @apply grid m-auto;
+}
+
 .squared-container {
   @apply border p-8 text-gray-800 bg-indigo-200;
 }
@@ -28,6 +40,11 @@ label {
   @apply m-auto text-center pt-8;
 }
 
+.page {
+  @apply p-6;
+}
+
+/* (pseudo)components */
 .big-button {
   @apply bg-indigo-400 py-4 w-full mt-8 text-xl rounded-md outline-none text-white;
 }
@@ -36,6 +53,15 @@ label {
   @apply outline-none;
 }
 
+.card {
+  @apply m-4 p-4 bg-indigo-300 border border-gray-500;
+}
+
+.text-field {
+  @apply my-4;
+}
+
+/* text stylings */
 .error-message {
   @apply text-red-700 font-medium;
 }
@@ -44,14 +70,11 @@ label {
   @apply text-gray-600;
 }
 
-.text-field {
-  @apply my-4;
-}
-
 .title {
   @apply text-xl font-bold my-2;
 }
 
+/* other */
 .bg-pets {
   background-image: url('../img/pets.png');
 }
