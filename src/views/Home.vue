@@ -16,15 +16,22 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'Home',
   computed: {
-    availableAnimals() {
-      return this.$store.getters.availableAnimals
-    }
+    ...mapGetters({
+      availableAnimals: 'availableAnimals'
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchAnimals: 'fetchAnimals'
+    })
   },
   created() {
-    this.$store.dispatch('fetchAnimals')
+    this.fetchAnimals()
   }
 }
 </script>

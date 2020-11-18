@@ -5,12 +5,18 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
 import authUtils from '../infrastructure/authentication'
 
 export default {
+  methods: {
+    ...mapActions({
+      userLogout: 'userLogout'
+    })
+  },
   created() {
-    this.$store.dispatch('userLogout').then(() => {
+    this.userLogout().then(() => {
       this.$router.push({ name: routesInfo.login.name })
     })
     authUtils.deleteTokens()

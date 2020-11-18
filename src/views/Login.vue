@@ -35,6 +35,7 @@ import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
 import authUtils from '../infrastructure/authentication'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -56,6 +57,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      userLogin: 'userLogin'
+    }),
     handleChange(payload) {
       this[payload.targetName] = payload.targetValue
     },
@@ -76,11 +80,10 @@ export default {
         this.inputErrors.push('Password field may not be empty')
     },
     login() {
-      this.$store
-        .dispatch('userLogin', {
-          username: this.username,
-          password: this.password
-        })
+      this.userLogin({
+        username: this.username,
+        password: this.password
+      })
         .then(() => this.processLoginOk())
         .catch(error => this.processLoginError(error))
     },

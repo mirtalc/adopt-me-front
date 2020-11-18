@@ -1,17 +1,15 @@
 <template>
   <div class="page">
-    <div>
-      <p>Here you can see all of our animals!</p>
-      <p>In the future, we'll implement filters by animal type, or state</p>
+    <p>Here you can see all of our animals!</p>
+    <p>In the future, we'll implement filters by animal type, or state</p>
 
-      <div class="my-4">
-        For now, you can
-        <InlineLink
-          :routeName="routesInfo.animalCreate.name"
-          :text="'register a new animal'"
-        />
-        in our database (even if you are not an ADMIN)
-      </div>
+    <div class="my-4">
+      For now, you can
+      <InlineLink
+        :routeName="routesInfo.animalCreate.name"
+        :text="'register a new animal'"
+      />
+      in our database (even if you are not an ADMIN)
     </div>
     <img v-if="loading" class="mx-auto" src="../assets/img/loading.gif" />
     <div class="grid-container grid-cols-1 sm:grid-cols-2">
@@ -25,11 +23,11 @@
         <div>Animal type: (pending)</div>
       </div>
     </div>
-    <p>Only available</p>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
 import InlineLink from '../components/InlineLink'
 
@@ -43,19 +41,22 @@ export default {
     InlineLink
   },
   computed: {
-    animals() {
-      return this.$store.state.animals
-    },
-    availableAnimals() {
-      return this.$store.getters.availableAnimals
-    }
+    ...mapState({
+      animals: 'animals'
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetchAnimals: 'fetchAnimals',
+      userLogout: 'userLogout'
+    })
   },
   created() {
     this.loading = true
-    this.$store.dispatch('fetchAnimals').finally(() => (this.loading = false))
+    this.fetchAnimals().finally(() => (this.loading = false))
   },
   onIdle() {
-    this.$store.dispatch('userLogout').then(() => {
+    this.userLogout().then(() => {
       this.$router.push({ name: routesInfo.logout.name })
     })
   }

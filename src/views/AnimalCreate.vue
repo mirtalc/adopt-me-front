@@ -39,6 +39,7 @@ import FormErrors from '../components/FormErrors'
 import TextInput from '../components/TextInput'
 import SelectInput from '../components/SelectInput'
 import { routesInfo } from '../constants/routesInfo'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'AnimalCreate',
@@ -69,6 +70,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      animalCreate: 'animalCreate'
+    }),
     handleChange(payload) {
       this[payload.targetName] = payload.targetValue
     },
@@ -90,12 +94,11 @@ export default {
         this.inputErrors.push('You must choose a valid adoption status')
     },
     submit() {
-      this.$store
-        .dispatch('animalCreate', {
-          name: this.animalName,
-          status: this.selectedStatus,
-          type: this.selectedTyped
-        })
+      this.animalCreate({
+        name: this.animalName,
+        status: this.selectedStatus,
+        type: this.selectedTyped
+      })
         .then(() => this.processSubmitOk())
         .catch(error => this.processSubmitError(error))
     },

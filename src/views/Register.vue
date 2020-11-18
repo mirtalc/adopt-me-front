@@ -34,6 +34,7 @@ import InlineLink from '../components/InlineLink'
 import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Register',
@@ -55,6 +56,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      userRegister: 'userRegister'
+    }),
     handleChange(payload) {
       this[payload.targetName] = payload.targetValue
     },
@@ -77,11 +81,10 @@ export default {
       }
     },
     register() {
-      this.$store
-        .dispatch('userRegister', {
-          username: this.username,
-          password: this.password
-        })
+      this.userRegister({
+        username: this.username,
+        password: this.password
+      })
         .then(() => this.processRegisterOk())
         .catch(error => this.processRegisterError(error))
     },
