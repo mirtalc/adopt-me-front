@@ -35,7 +35,7 @@ import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
 import authUtils from '../infrastructure/authentication'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Login',
@@ -52,6 +52,9 @@ export default {
     routesInfo
   }),
   computed: {
+    ...mapState({
+      accessToken: state => state.authentication.accessToken
+    }),
     hasInputErrors() {
       return !!this.inputErrors.length
     }
@@ -88,7 +91,7 @@ export default {
         .catch(error => this.processLoginError(error))
     },
     processLoginOk() {
-      authUtils.setAccessToken(this.$store.state.accessToken)
+      authUtils.setAccessToken(this.accessToken)
       this.redirectToAnimals()
     },
     processLoginError(error) {

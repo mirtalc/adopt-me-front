@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     ...mapState({
-      animals: 'animals'
+      animals: state => state.animals.all
     })
   },
   methods: {

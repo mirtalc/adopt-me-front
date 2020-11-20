@@ -28,7 +28,9 @@ export default {
   data: () => ({
     routesInfo
   }),
-  computed: mapState(['accessToken']),
+  computed: mapState({
+    accessToken: state => state.authentication.accessToken
+  }),
   components: { NavigationLink }
 }
 </script>

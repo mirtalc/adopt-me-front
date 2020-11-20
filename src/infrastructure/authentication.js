@@ -7,30 +7,29 @@ function factory() {
     setRefreshToken(value) {
       return localStorage.setItem('refreshToken', value)
     },
-    deleteAccessToken(){
+    deleteAccessToken() {
       return localStorage.removeItem('accessToken', null)
     },
-    deleteRefreshToken(){
+    deleteRefreshToken() {
       return localStorage.removeItem('refreshToken', null)
     },
-    deleteTokens(){
-      return (
-        this.deleteAccessToken(),
-        this.deleteRefreshToken()
-      )
+    deleteTokens() {
+      return this.deleteAccessToken(), this.deleteRefreshToken()
     },
     getAccessToken() {
-      console.log('getAccessToken from localstorage: ', localStorage.getItem('accessToken'))
+      console.log(
+        'getAccessToken from localstorage: ',
+        localStorage.getItem('accessToken')
+      )
       return localStorage.getItem('accessToken')
     },
     getBearerToken() {
-      console.log('getbearer', `Bearer ${this.getAccessToken()}`)
       return `Bearer ${this.getAccessToken()}`
     },
     isAuthenticated() {
       console.log('isAuthenticated executed')
       return !!this.getAccessToken()
-    },
+    }
   }
 }
 
