@@ -1,4 +1,4 @@
-import { http } from '../../infrastructure/axios-api'
+import { http, http_headers } from '../../infrastructure/axios-api'
 import { apiEndpoints } from '../../constants/apiEndpoints'
 import authUtils from '../../infrastructure/authUtils'
 
@@ -20,6 +20,9 @@ export default {
     deleteTokens(state) {
       state.accessToken = null
       state.refreshToken = null
+    },
+    setAccessToken(state, access) {
+      state.accessToken = access
     }
   },
   actions: {
@@ -31,10 +34,12 @@ export default {
             password: credentials.password
           })
           .then(response => {
-            context.commit('setTokens', {
+            const tokens = {
               access: response.data.access,
               refresh: response.data.refresh
-            })
+            }
+            context.commit('setTokens', tokens)
+            authUtils.setTokensLocalStorage(tokens)
             resolve()
           })
           .catch(error => {
@@ -46,6 +51,7 @@ export default {
       if (context.getters.isLogged) {
         context.commit('deleteTokens')
       }
+      authUtils.deleteTokens()
     },
     userRegister(context, credentials) {
       return new Promise((resolve, reject) => {
@@ -55,12 +61,26 @@ export default {
             password: credentials.password
           })
           .then(response => {
-            console.log('register OK response: ', response)
-            resolve()
+            resolve(response)
           })
           .catch(error => {
             reject(error)
           })
+      })
+    },
+    renewTokens(context) {
+      return new Promise((resolve, reject) => {
+        const refreshToken = authUtils.getRefreshToken()
+        http_headers
+          .post(apiEndpoints.refresh, {
+            refresh: refreshToken
+          })
+          .then(response => {
+            context.commit('setAccessToken', response.data.access)
+            authUtils.setAccessToken(response.data.access)
+            resolve(response.data.access)
+          })
+          .catch(error => reject(error))
       })
     }
   }

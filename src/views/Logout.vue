@@ -7,7 +7,6 @@
 <script>
 import { mapActions } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
-import authUtils from '../infrastructure/authUtils'
 
 export default {
   methods: {
@@ -19,7 +18,6 @@ export default {
     this.userLogout().then(() => {
       this.$router.push({ name: routesInfo.login.name })
     })
-    authUtils.deleteTokens()
   }
 }
 </script>

@@ -7,7 +7,6 @@ export default {
   },
   getters: {
     availableAnimals(state) {
-      console.log('stateeeeee', state)
       let filtered = []
       if (state.all.length) {
         filtered = state.all.filter(animal => animal.status === 'AVAIL')

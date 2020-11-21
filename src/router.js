@@ -12,7 +12,10 @@ const routes = [
   {
     path: routesInfo.home.path,
     name: routesInfo.home.name,
-    component: Home
+    component: Home,
+    meta: {
+      requiresLogin: true
+    }
   },
   {
     path: routesInfo.animals.path,

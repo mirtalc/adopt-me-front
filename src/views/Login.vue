@@ -34,7 +34,7 @@ import InlineLink from '../components/InlineLink'
 import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
-import authUtils from '../infrastructure/authUtils'
+// import authUtils from '../infrastructure/authUtils'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -91,7 +91,7 @@ export default {
         .catch(error => this.processLoginError(error))
     },
     processLoginOk() {
-      authUtils.setAccessToken(this.accessToken)
+      // authUtils.setAccessToken(this.accessToken)
       this.redirectToAnimals()
     },
     processLoginError(error) {
