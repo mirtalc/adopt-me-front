@@ -26,7 +26,12 @@ export default {
       return this.$route.name
     },
     shouldBeSeparated() {
-      return this.routeName === routesInfo.logout.name
+      //TODO export to constant
+      const separatedOptions = [
+        routesInfo.logout.name,
+        routesInfo.register.name
+      ]
+      return separatedOptions.includes(this.routeName)
     },
     isCurrentSection() {
       return this.routeName === this.currentRouteName
