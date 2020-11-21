@@ -7,7 +7,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
-import authUtils from '../infrastructure/authentication'
+import authUtils from '../infrastructure/authUtils'
 
 export default {
   methods: {

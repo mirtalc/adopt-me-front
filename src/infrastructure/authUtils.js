@@ -23,6 +23,13 @@ function factory() {
       )
       return localStorage.getItem('accessToken')
     },
+    getRefreshToken() {
+      console.log(
+        'getRefreshToken from localstorage: ',
+        localStorage.getItem('refreshToken')
+      )
+      return localStorage.getItem('accessToken')
+    },
     getBearerToken() {
       return `Bearer ${this.getAccessToken()}`
     },

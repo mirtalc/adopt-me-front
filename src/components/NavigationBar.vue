@@ -10,7 +10,7 @@
         :route-name="routesInfo.animals.name"
       />
       <NavigationLink
-        v-if="!!accessToken"
+        v-if="isLogged"
         :text="routesInfo.logout.text"
         :route-name="routesInfo.logout.name"
       />
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
 import NavigationLink from './NavigationLink'
 
@@ -28,9 +28,11 @@ export default {
   data: () => ({
     routesInfo
   }),
-  computed: mapState({
-    accessToken: state => state.authentication.accessToken
-  }),
+  computed: {
+    ...mapGetters({
+      isLogged: 'isLogged'
+    })
+  },
   components: { NavigationLink }
 }
 </script>

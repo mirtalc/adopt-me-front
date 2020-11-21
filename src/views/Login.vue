@@ -34,7 +34,7 @@ import InlineLink from '../components/InlineLink'
 import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
-import authUtils from '../infrastructure/authentication'
+import authUtils from '../infrastructure/authUtils'
 import { mapActions, mapState } from 'vuex'
 
 export default {

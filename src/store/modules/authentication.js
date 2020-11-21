@@ -1,11 +1,12 @@
 import { http } from '../../infrastructure/axios-api'
 import { apiEndpoints } from '../../constants/apiEndpoints'
+import authUtils from '../../infrastructure/authUtils'
 
 export default {
-  state: {
-    accessToken: null,
-    refreshToken: null
-  },
+  state: () => ({
+    accessToken: authUtils.getAccessToken(),
+    refreshToken: authUtils.getRefreshToken()
+  }),
   getters: {
     isLogged(state) {
       return state.accessToken != null
