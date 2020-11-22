@@ -8,6 +8,10 @@ img {
   @apply mx-auto p-4;
 }
 
+.logo {
+  padding: 0;
+}
+
 input,
 select {
   @apply w-48 rounded bg-blue-100;
