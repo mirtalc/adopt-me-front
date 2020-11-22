@@ -11,7 +11,7 @@
       />
       in our database (even if you are not an ADMIN)
     </div>
-    <img v-if="loading" class="mx-auto" src="../assets/img/loading.gif" />
+    <img v-if="loading" class="mx-auto" src="../assets/img/spinner.gif" />
     <div class="grid-container grid-cols-1 sm:grid-cols-2">
       <div
         v-for="animal in animals"

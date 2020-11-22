@@ -1,6 +1,6 @@
 <template>
   <div class="page text-center text-2xl">
-    <img src="../../assets/img/404.png" alt="not-found robot" />
+    <img src="../../assets/img/error-404.png" alt="not-found robot" />
     <div class="my-8">
       Oops! We didn't find the page you were looking for.
     </div>
