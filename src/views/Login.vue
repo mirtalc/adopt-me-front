@@ -34,7 +34,6 @@ import InlineLink from '../components/InlineLink'
 import TextInput from '../components/TextInput'
 import FormErrors from '../components/FormErrors'
 import { routesInfo } from '../constants/routesInfo'
-// import authUtils from '../infrastructure/authUtils'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -91,8 +90,7 @@ export default {
         .catch(error => this.processLoginError(error))
     },
     processLoginOk() {
-      // authUtils.setAccessToken(this.accessToken)
-      this.redirectToAnimals()
+      this.redirectToHome()
     },
     processLoginError(error) {
       let error_code = error.response.data.error_code
@@ -104,8 +102,8 @@ export default {
       }
       console.warn('Error while logging in: ', error)
     },
-    redirectToAnimals() {
-      this.$router.push({ name: routesInfo.animals.name })
+    redirectToHome() {
+      this.$router.push({ name: routesInfo.home.name })
     }
   }
 }

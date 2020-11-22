@@ -67,6 +67,7 @@ export default {
   @apply ml-auto;
 }
 .active {
-  @apply bg-gray-600;
+  background-color: tomato;
+  color: whitesmoke;
 }
 </style>

@@ -3,7 +3,8 @@ import { apiEndpoints } from '../../constants/apiEndpoints'
 
 export default {
   state: {
-    all: []
+    all: [],
+    current: []
   },
   getters: {
     availableAnimals(state) {
@@ -17,6 +18,9 @@ export default {
   mutations: {
     setAnimals(state, payload) {
       state.all = payload
+    },
+    setCurrent(state, payload) {
+      state.current = payload
     }
   },
   actions: {
@@ -42,12 +46,26 @@ export default {
         http_headers
           .get(apiEndpoints.animals)
           .then(response => {
-            console.log('Axios has received data: ', response.data)
             commit('setAnimals', response.data)
             resolve(response)
           })
           .catch(error => {
             console.warn('Error trying to receive data: ', error)
+            reject(error)
+          })
+      })
+    },
+    fetchDetails({ commit }, itemId) {
+      let url = `${apiEndpoints.animals}${itemId}/`
+      return new Promise((resolve, reject) => {
+        http_headers
+          .get(url)
+          .then(response => {
+            commit('setCurrent', response.data)
+            resolve(response)
+          })
+          .catch(error => {
+            console.warn('Error trying to receive detail: ', error)
             reject(error)
           })
       })

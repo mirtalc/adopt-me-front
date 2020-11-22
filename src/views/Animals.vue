@@ -13,7 +13,12 @@
     </div>
     <img v-if="loading" class="mx-auto" src="../assets/img/loading.gif" />
     <div class="grid-container grid-cols-1 sm:grid-cols-2">
-      <div v-for="animal in animals" :key="animal.id" class="card">
+      <div
+        v-for="animal in animals"
+        :key="animal.id"
+        class="card"
+        @click="sendToDetails(animal.id)"
+      >
         <img
           src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
           alt="Placeholder"
@@ -49,7 +54,15 @@ export default {
     ...mapActions({
       fetchAnimals: 'fetchAnimals',
       userLogout: 'userLogout'
-    })
+    }),
+    sendToDetails(id) {
+      this.$router.push({
+        name: routesInfo.animalDetail.name,
+        params: {
+          animalId: id
+        }
+      })
+    }
   },
   created() {
     this.loading = true
@@ -63,4 +76,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.card {
+  cursor: pointer;
+}
+</style>

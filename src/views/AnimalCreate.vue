@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-pets custom squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl"
+    class="bg-pets squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl"
   >
     <p class="title">Register a new animal</p>
     <p>Enter the details of the new animal</p>
