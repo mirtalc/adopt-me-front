@@ -41,8 +41,12 @@ const routes = [
   {
     path: routesInfo.animalDetail.path,
     name: routesInfo.animalDetail.name,
-    component: () => import('./views/AnimalDetail'),
-    props: true
+    component: () => import('./views/AnimalDetail')
+  },
+  {
+    path: routesInfo.error.path,
+    name: routesInfo.error.name,
+    component: () => import('./views/errors/GenericError')
   },
   { path: '*', component: () => import('./views/errors/NotFound') }
 ]

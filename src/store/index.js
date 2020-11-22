@@ -10,8 +10,14 @@ export default new Vuex.Store({
     animals,
     authentication
   },
-  state: {},
-  mutations: {},
+  state: {
+    lastError: null
+  },
+  mutations: {
+    setError(state, payload) {
+      state.lastError = payload
+    }
+  },
   getters: {},
   actions: {}
 })

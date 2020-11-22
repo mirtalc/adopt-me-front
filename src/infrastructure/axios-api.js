@@ -31,6 +31,7 @@ instance_headers.interceptors.response.use(
     }
 
     if (!isAuthorizationRelated(error)) {
+      processUnknownError(error)
       return new Promise((resolve, reject) => reject(error))
     }
 
@@ -62,6 +63,17 @@ function isRefreshTokenRelated(error) {
 
 function redirectToLogin() {
   router.push({ name: routesInfo.login.name })
+}
+
+function processUnknownError(error) {
+  console.log('Unknown Axios error: ', error)
+  console.log(error)
+  store.commit('setError', error)
+  redirectToGenericError()
+}
+
+function redirectToGenericError() {
+  router.push({ name: routesInfo.error.name })
 }
 
 function forceLogOut() {

@@ -33,5 +33,9 @@ export const routesInfo = {
     path: '/register',
     name: 'Register',
     text: 'Register'
+  },
+  error: {
+    path: '/error',
+    name: 'Error'
   }
 }
