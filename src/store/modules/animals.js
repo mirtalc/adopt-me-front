@@ -36,7 +36,6 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            console.warn('Error trying to post data: ', error)
             reject(error)
           })
       })
@@ -50,7 +49,6 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            console.warn('Error trying to receive data: ', error)
             reject(error)
           })
       })
@@ -65,9 +63,17 @@ export default {
             resolve(response)
           })
           .catch(error => {
-            console.warn('Error trying to receive detail: ', error)
             reject(error)
           })
+      })
+    },
+    deleteAnimal(context, itemId) {
+      let url = `${apiEndpoints.animals}${itemId}0/`
+      return new Promise((resolve, reject) => {
+        http_headers
+          .delete(url)
+          .then(response => resolve(response))
+          .catch(error => reject(error))
       })
     }
   }

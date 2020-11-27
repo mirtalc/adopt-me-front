@@ -6,6 +6,7 @@
         <img
           src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
           alt="Placeholder"
+          class="picture"
         />
         <div>Name: {{ animal.name }}</div>
         <div>Adoption status: {{ animal.status }}</div>

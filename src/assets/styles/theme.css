@@ -4,11 +4,12 @@ body {
   background-image: url('../img/pattern.png');
 }
 
-img {
+.picture {
   @apply mx-auto p-4;
 }
 
 .logo {
+  @apply mx-auto;
   padding: 0;
 }
 

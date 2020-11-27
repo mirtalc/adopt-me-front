@@ -6,7 +6,11 @@
     <div class="text-xl">
       This is us right now:
     </div>
-    <img src="../../assets/img/error-generic.png" alt="generic-error robot" />
+    <img
+      src="../../assets/img/error-generic.png"
+      alt="generic-error robot"
+      class="picture"
+    />
     <div>
       Please,
       <InlineLink :routeName="routesInfo.home.name" :text="'go home'" /> and try
