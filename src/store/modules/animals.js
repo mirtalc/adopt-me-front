@@ -68,7 +68,7 @@ export default {
       })
     },
     deleteAnimal(context, itemId) {
-      let url = `${apiEndpoints.animals}${itemId}0/`
+      let url = `${apiEndpoints.animals}${itemId}/`
       return new Promise((resolve, reject) => {
         http_headers
           .delete(url)

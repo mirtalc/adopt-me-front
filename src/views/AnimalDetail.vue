@@ -12,12 +12,17 @@
         @click="clickDelete()"
       />
     </div>
+    <ConfirmationWarning
+      v-show="showConfirmation"
+      @cancelEvent="cancelAction()"
+      @confirmEvent="confirmAction()"
+    />
     <img
       src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
       alt="Placeholder"
       class="picture"
     />
-    <ul>
+    <ul class="details">
       <li><span>Pet's proposed name: </span> {{ animal.name }}</li>
       <li><span>Species: </span> {{ animal.type }} (Still pending...)</li>
       <li><span>Adoption status: </span>{{ animal.status }}</li>
@@ -34,9 +39,16 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
+import ConfirmationWarning from '../components/ConfirmationWarning'
 
 export default {
   name: 'AnimalDetail',
+  components: {
+    ConfirmationWarning
+  },
+  data: () => ({
+    showConfirmation: false
+  }),
   computed: {
     animalId() {
       return this.$route.params.animalId
@@ -65,9 +77,13 @@ export default {
       console.warn('Error while deleting animal: ', error)
     },
     clickDelete() {
-      alert(
-        'You are going to delete an animal. In the future we will show a confirmation'
-      ) //TODO
+      this.showConfirmation = true
+    },
+    cancelAction() {
+      this.showConfirmation = false
+    },
+    confirmAction() {
+      this.showConfirmation = false
       this.deleteAnimal(this.animalId)
         .then(() => this.processDeleteOk())
         .catch(error => this.processDeleteError(error))
@@ -81,10 +97,10 @@ export default {
 
 <style>
 .detail-box {
-  background-color: whitesmoke;
+  background-color: #ffd166;
 }
 
-li span {
+.details span {
   @apply font-bold pr-4;
 }
 
