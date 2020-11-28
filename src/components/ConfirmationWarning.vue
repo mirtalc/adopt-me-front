@@ -2,18 +2,18 @@
   <div class="text-center bg-red-200 p-4 m-4 border-2 border-red-500 rounded">
     {{ text }}
     <div class="flex justify-center p-2 mt-2">
-      <NormalButton :text="'Cancel'" @clickEvent="cancelEmitter()" />
-      <NormalButton :text="'Confirm'" @clickEvent="confirmEmitter()" />
+      <SmallButton :text="'Cancel'" @clickEvent="cancelEmitter()" />
+      <SmallButton :text="'Confirm'" @clickEvent="confirmEmitter()" />
     </div>
   </div>
 </template>
 
 <script>
-import NormalButton from '../components/NormalButton'
+import SmallButton from '../components/SmallButton'
 export default {
   name: 'ConfirmationWarning',
   components: {
-    NormalButton
+    SmallButton
   },
   props: {
     text: {

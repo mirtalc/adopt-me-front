@@ -5,34 +5,43 @@
         {{ animal.name }}
         <span class="hidden sm:inline"> - Detailed information</span>
       </p>
-      <img src="../assets/img/icons/edit.png" class="icon ml-auto px-2" />
+      <img
+        v-if="editionMode"
+        src="../assets/img/icons/discard.png"
+        class="icon ml-auto px-2"
+        @click="clickDiscard()"
+      />
+      <img
+        v-else
+        src="../assets/img/icons/edit.png"
+        class="icon ml-auto px-2"
+        @click="clickEdit()"
+      />
       <img
         src="../assets/img/icons/trash.png"
         class="icon"
         @click="clickDelete()"
       />
     </div>
+
     <ConfirmationWarning
       v-show="showConfirmation"
       @cancelEvent="cancelAction()"
       @confirmEvent="confirmAction()"
     />
+
     <img
       src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
       alt="Placeholder"
       class="picture"
     />
-    <ul class="details">
-      <li><span>Pet's proposed name: </span> {{ animal.name }}</li>
-      <li><span>Species: </span> {{ animal.type }} (Still pending...)</li>
-      <li><span>Adoption status: </span>{{ animal.status }}</li>
-      <div class="mt-2"><span> Vaccination history</span></div>
-      <div v-for="vaccination in animal.vaccinations" :key="vaccination.id">
-        <!-- //TODO assembler for preprocessing back response before saving it to state -->
-        {{ vaccination.date_vaccinated }} | Vaccine id:
-        {{ vaccination.vaccine }} | {{ vaccination.incidences }}
-      </div>
-    </ul>
+
+    <DetailEdition
+      v-if="editionMode"
+      :animal="this.animal"
+      @editedEvent="reloadComponent()"
+    />
+    <DetailList v-else :animal="this.animal" />
   </div>
 </template>
 
@@ -40,14 +49,19 @@
 import { mapActions, mapState } from 'vuex'
 import { routesInfo } from '../constants/routesInfo'
 import ConfirmationWarning from '../components/ConfirmationWarning'
+import DetailList from '../components/animals/DetailList'
+import DetailEdition from '../components/animals/DetailEdition'
 
 export default {
   name: 'AnimalDetail',
   components: {
-    ConfirmationWarning
+    ConfirmationWarning,
+    DetailList,
+    DetailEdition
   },
   data: () => ({
-    showConfirmation: false
+    showConfirmation: false,
+    editionMode: false
   }),
   computed: {
     animalId() {
@@ -70,11 +84,14 @@ export default {
       this.redirectToAllAnimals()
     },
     processDeleteError(error) {
-      //TODO rethink error treatment with axios. maybe keep a list of known errors
-      // or only show generic error component if server is down
-      // or let every component process its errors and redirect to GenericError from component
-      alert('Unknown error; trying to delete animal. More info at Console.')
+      alert('Unknown error trying to delete animal. More info at Console.')
       console.warn('Error while deleting animal: ', error)
+    },
+    clickDiscard() {
+      this.editionMode = false
+    },
+    clickEdit() {
+      this.editionMode = true
     },
     clickDelete() {
       this.showConfirmation = true
@@ -87,6 +104,9 @@ export default {
       this.deleteAnimal(this.animalId)
         .then(() => this.processDeleteOk())
         .catch(error => this.processDeleteError(error))
+    },
+    reloadComponent() {
+      this.fetchDetails(this.animalId).then((this.editionMode = false))
     }
   },
   beforeMount() {

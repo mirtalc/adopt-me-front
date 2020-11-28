@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <h1>Pets that are available for adopting!</h1>
-    <div class="grid-container grid-cols-1 sm:grid-cols-2">
+    <div class="max-w-2xl py-4 mx-auto">
       <div v-for="animal in availableAnimals" :key="animal.id" class="card">
         <img
           src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"

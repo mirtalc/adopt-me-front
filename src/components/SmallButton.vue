@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'NormalButton',
+  name: 'SmallButton',
   props: {
     text: {
       type: String,

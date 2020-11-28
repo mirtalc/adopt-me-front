@@ -25,19 +25,16 @@ export default {
   },
   actions: {
     animalCreate(context, formData) {
+      const bodyParams = {
+        name: formData.name,
+        status: formData.status,
+        type: formData.type
+      }
       return new Promise((resolve, reject) => {
         http_headers
-          .post(apiEndpoints.animals, {
-            name: formData.name,
-            status: formData.status,
-            type: formData.type
-          })
-          .then(response => {
-            resolve(response)
-          })
-          .catch(error => {
-            reject(error)
-          })
+          .post(apiEndpoints.animals, bodyParams)
+          .then(response => resolve(response))
+          .catch(error => reject(error))
       })
     },
     fetchAnimals({ commit }) {
@@ -48,9 +45,7 @@ export default {
             commit('setAnimals', response.data)
             resolve(response)
           })
-          .catch(error => {
-            reject(error)
-          })
+          .catch(error => reject(error))
       })
     },
     fetchDetails({ commit }, itemId) {
@@ -59,19 +54,32 @@ export default {
         http_headers
           .get(url)
           .then(response => {
-            commit('setCurrent', response.data)
+            const payload = { id: itemId, ...response.data }
+            commit('setCurrent', payload)
             resolve(response)
           })
-          .catch(error => {
-            reject(error)
-          })
+          .catch(error => reject(error))
       })
     },
     deleteAnimal(context, itemId) {
-      let url = `${apiEndpoints.animals}${itemId}/`
+      const url = `${apiEndpoints.animals}${itemId}/`
       return new Promise((resolve, reject) => {
         http_headers
           .delete(url)
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
+    },
+    updateAnimal(context, { id, name, status }) {
+      const url = `${apiEndpoints.animals}${id}/`
+      const bodyParams = {
+        name,
+        status
+        // type
+      }
+      return new Promise((resolve, reject) => {
+        http_headers
+          .patch(url, bodyParams)
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
