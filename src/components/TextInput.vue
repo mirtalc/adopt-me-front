@@ -7,6 +7,7 @@
       :placeholder="placeholderText"
       :value="value"
       @input="inputEmitter"
+      :disabled="disabled"
     />
   </div>
 </template>
@@ -34,6 +35,10 @@ export default {
     placeholderText: {
       type: String,
       required: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
