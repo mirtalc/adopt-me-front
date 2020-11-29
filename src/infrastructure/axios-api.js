@@ -25,7 +25,7 @@ instance_headers.interceptors.response.use(
   response => response,
   error => {
     if (isRefreshTokenRelated(error)) {
-      alert('Sorry, your session has expired. Please, log in again')
+      this.$toast.warning('Your session has expired. Please, log in again')
       forceLogOut()
       return new Promise((resolve, reject) => reject(error))
     }

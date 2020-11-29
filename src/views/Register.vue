@@ -68,7 +68,9 @@ export default {
     },
     checkAndRegister() {
       this.checkValues()
-      if (!this.hasInputErrors) this.register()
+      this.hasInputErrors
+        ? this.$toast.error('Oops. Please, correct the mistakes below')
+        : this.register()
     },
     checkValues() {
       this.cleanErrors()
@@ -89,9 +91,7 @@ export default {
         .catch(error => this.processRegisterError(error))
     },
     processRegisterOk() {
-      alert(
-        "Success! New user registered. You'll be redirected to our login page."
-      )
+      this.$toast.success('Success! You can log in now')
       this.redirectToLogin()
     },
     processRegisterError(error) {

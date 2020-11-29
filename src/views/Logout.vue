@@ -16,6 +16,7 @@ export default {
   },
   created() {
     this.userLogout().then(() => {
+      this.$toast.default('Bye-bye!', { position: 'bottom' })
       this.$router.push({ name: routesInfo.login.name })
     })
   }

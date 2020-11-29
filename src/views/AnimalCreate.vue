@@ -103,12 +103,11 @@ export default {
         .catch(error => this.processSubmitError(error))
     },
     processSubmitOk() {
-      alert(
-        "Success! Animal registered. You'll be redirected to the animal list."
-      )
+      this.$toast.success('Sucess! Animal registered')
       this.redirectToAllAnimals()
     },
     processSubmitError(error) {
+      this.$toast.error('Oops, something went wrong')
       this.submitError =
         'Unknown error; please try again later. More info at Console.'
       console.warn('Error while registering animal: ', error)

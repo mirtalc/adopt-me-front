@@ -80,11 +80,11 @@ export default {
       this.$router.push({ name: routesInfo.animals.name })
     },
     processDeleteOk() {
-      alert('Successfully deleted. We will redirect you to All animals')
+      this.$toast.success('Successfully deleted!')
       this.redirectToAllAnimals()
     },
     processDeleteError(error) {
-      alert('Unknown error trying to delete animal. More info at Console.')
+      this.$toast.error('Oops, something went wrong')
       console.warn('Error while deleting animal: ', error)
     },
     clickDiscard() {

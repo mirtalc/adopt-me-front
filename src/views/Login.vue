@@ -71,7 +71,9 @@ export default {
     },
     checkAndLogin() {
       this.checkValues()
-      if (!this.hasInputErrors) this.login()
+      this.hasInputErrors
+        ? this.$toast.error('Oops. Please, correct the mistakes below')
+        : this.login()
     },
     checkValues() {
       this.cleanErrors()
@@ -90,6 +92,7 @@ export default {
         .catch(error => this.processLoginError(error))
     },
     processLoginOk() {
+      this.$toast.default('Welcome! ^^', { position: 'bottom' })
       this.redirectToHome()
     },
     processLoginError(error) {

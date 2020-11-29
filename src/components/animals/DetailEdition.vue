@@ -73,11 +73,11 @@ export default {
       this.selectedStatus = this.animal.status
     },
     processSubmitOk() {
-      alert('Changes saved successfully!')
+      this.$toast.success('Changes saved successfully!')
       this.$emit('editedEvent')
     },
-    processSubmitError(error) {
-      console.log('ERRORRRRRr', error)
+    processSubmitError() {
+      this.$toast.error('Oops, something went wrong')
     },
     clickSave() {
       console.log('this animal', this.animal)
