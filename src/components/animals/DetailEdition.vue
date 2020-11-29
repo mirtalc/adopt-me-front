@@ -27,8 +27,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import TextInput from '@/components/TextInput'
-import SelectInput from '@/components/SelectInput'
+import TextInput from '@/components/basic/TextInput'
+import SelectInput from '@/components/basic/SelectInput'
 import { routesInfo } from '@/constants/routesInfo'
 
 export default {

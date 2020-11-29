@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SmallButton from '@/components/SmallButton'
+import SmallButton from '@/components/basic/SmallButton'
 export default {
   name: 'ConfirmationWarning',
   components: {

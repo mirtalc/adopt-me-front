@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-pets squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl"
-  >
+  <div class="squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl">
     <p class="title">Register a new animal</p>
     <p>Enter the details of the new animal</p>
 
@@ -37,8 +35,8 @@
 <script>
 import { mapActions } from 'vuex'
 import FormErrors from '@/components/FormErrors'
-import TextInput from '@/components/TextInput'
-import SelectInput from '@/components/SelectInput'
+import TextInput from '@/components/basic/TextInput'
+import SelectInput from '@/components/basic/SelectInput'
 import { routesInfo } from '@/constants/routesInfo'
 
 export default {
@@ -119,8 +117,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 select:hover {
   @apply cursor-pointer;
+}
+
+div {
+  background-color: #ffd166;
+}
+
+button {
+  background-color: #f77f00;
 }
 </style>

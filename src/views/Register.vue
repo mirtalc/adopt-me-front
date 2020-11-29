@@ -31,7 +31,7 @@
 
 <script>
 import InlineLink from '@/components/InlineLink'
-import TextInput from '@/components/TextInput'
+import TextInput from '@/components/basic/TextInput'
 import FormErrors from '@/components/FormErrors'
 import { routesInfo } from '@/constants/routesInfo'
 import { mapActions } from 'vuex'
