@@ -17,6 +17,7 @@
         v-for="animal in animals"
         :key="animal.id"
         class="card"
+        :class="otherClasses(animal.status)"
         @click="sendToDetails(animal.id)"
       >
         <img
@@ -36,6 +37,7 @@
 import { mapActions, mapState } from 'vuex'
 import { routesInfo } from '@/constants/routesInfo'
 import InlineLink from '@/components/InlineLink'
+import { bgChooser } from '@/helpers'
 
 export default {
   name: 'Animals',
@@ -63,7 +65,8 @@ export default {
           animalId: id
         }
       })
-    }
+    },
+    otherClasses: status => bgChooser(status)
   },
   created() {
     this.loading = true

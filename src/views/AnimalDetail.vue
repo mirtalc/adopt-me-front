@@ -1,5 +1,8 @@
 <template>
-  <div class="detail-box border p-6 sm:max-w-2xl sm:mx-auto sm:my-16">
+  <div
+    class="border p-6 sm:max-w-2xl sm:mx-auto sm:my-16"
+    :class="otherClasses(animal.status)"
+  >
     <div class="flex text-2xl">
       <p>
         {{ animal.name }}
@@ -51,6 +54,7 @@ import { routesInfo } from '@/constants/routesInfo'
 import ConfirmationWarning from '@/components/ConfirmationWarning'
 import DetailList from '@/components/animals/DetailList'
 import DetailEdition from '@/components/animals/DetailEdition'
+import { bgChooser } from '@/helpers'
 
 export default {
   name: 'AnimalDetail',
@@ -107,7 +111,8 @@ export default {
     },
     reloadComponent() {
       this.fetchDetails(this.animalId).then((this.editionMode = false))
-    }
+    },
+    otherClasses: status => bgChooser(status)
   },
   beforeMount() {
     this.fetchDetails(this.animalId)
@@ -116,10 +121,6 @@ export default {
 </script>
 
 <style>
-.detail-box {
-  background-color: #ffd166;
-}
-
 .details span {
   @apply font-bold pr-4;
 }
