@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import animals from './modules/animals'
-import authentication from './modules/authentication'
+import animals from '@/store/modules/animals'
+import authentication from '@/store/modules/authentication'
 
 Vue.use(Vuex)
 export default new Vuex.Store({

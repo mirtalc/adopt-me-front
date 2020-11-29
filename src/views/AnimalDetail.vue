@@ -47,10 +47,10 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { routesInfo } from '../constants/routesInfo'
-import ConfirmationWarning from '../components/ConfirmationWarning'
-import DetailList from '../components/animals/DetailList'
-import DetailEdition from '../components/animals/DetailEdition'
+import { routesInfo } from '@/constants/routesInfo'
+import ConfirmationWarning from '@/components/ConfirmationWarning'
+import DetailList from '@/components/animals/DetailList'
+import DetailEdition from '@/components/animals/DetailEdition'
 
 export default {
   name: 'AnimalDetail',

@@ -25,8 +25,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { routesInfo } from '../../constants/routesInfo'
-import InlineLink from '../../components/InlineLink'
+import { routesInfo } from '@/constants/routesInfo'
+import InlineLink from '@/components/InlineLink'
 
 export default {
   name: 'GenericError',

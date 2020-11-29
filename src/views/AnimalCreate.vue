@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import FormErrors from '../components/FormErrors'
-import TextInput from '../components/TextInput'
-import SelectInput from '../components/SelectInput'
-import { routesInfo } from '../constants/routesInfo'
 import { mapActions } from 'vuex'
+import FormErrors from '@/components/FormErrors'
+import TextInput from '@/components/TextInput'
+import SelectInput from '@/components/SelectInput'
+import { routesInfo } from '@/constants/routesInfo'
 
 export default {
   name: 'AnimalCreate',

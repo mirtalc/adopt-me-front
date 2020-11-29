@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import IdleVue from 'idle-vue'
 import VueRouter from 'vue-router'
-import './assets/styles'
-import { routesInfo } from './constants/routesInfo'
+import IdleVue from 'idle-vue'
+import App from '@/App.vue'
+import router from '@/router'
+import store from '@/store'
+import { routesInfo } from '@/constants/routesInfo'
+import '@/assets/styles'
 
 const eventsHub = new Vue()
 
@@ -15,19 +15,16 @@ Vue.use(IdleVue, {
 })
 Vue.use(VueRouter)
 
-
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresLogin)){
-    !store.getters.isLogged
-    ? next({name: routesInfo.login.name})
-    : next()
+  if (to.matched.some(record => record.meta.requiresLogin)) {
+    !store.getters.isLogged ? next({ name: routesInfo.login.name }) : next()
   } else next()
 })
 
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')

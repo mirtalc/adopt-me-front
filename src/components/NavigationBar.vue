@@ -33,8 +33,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { routesInfo } from '../constants/routesInfo'
-import NavigationLink from './NavigationLink'
+import { routesInfo } from '@/constants/routesInfo'
+import NavigationLink from '@/components/NavigationLink'
 
 export default {
   name: 'NavigationBar',

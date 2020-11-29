@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import InlineLink from '../components/InlineLink'
-import TextInput from '../components/TextInput'
-import FormErrors from '../components/FormErrors'
-import { routesInfo } from '../constants/routesInfo'
+import InlineLink from '@/components/InlineLink'
+import TextInput from '@/components/TextInput'
+import FormErrors from '@/components/FormErrors'
+import { routesInfo } from '@/constants/routesInfo'
 import { mapActions } from 'vuex'
 
 export default {

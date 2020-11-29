@@ -6,7 +6,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { routesInfo } from '../constants/routesInfo'
+import { routesInfo } from '@/constants/routesInfo'
 
 export default {
   methods: {

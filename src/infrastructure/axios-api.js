@@ -1,9 +1,9 @@
 import axios from 'axios'
-import authUtils from './authUtils'
-import router from '../router'
-import { fullApiEndpoints, apiEndpoints } from '../constants/apiEndpoints'
-import { routesInfo } from '../constants/routesInfo'
-import store from '../store'
+import authUtils from '@/infrastructure/authUtils'
+import router from '@/router'
+import { fullApiEndpoints, apiEndpoints } from '@/constants/apiEndpoints'
+import { routesInfo } from '@/constants/routesInfo'
+import store from '@/store'
 
 const instance = axios.create({
   baseURL: fullApiEndpoints.backendServer(),

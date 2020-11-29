@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import { routesInfo } from './constants/routesInfo'
+import { routesInfo } from '@/constants/routesInfo'
 
 const routes = [
   {

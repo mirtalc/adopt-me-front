@@ -1,6 +1,6 @@
-import { http, http_headers } from '../../infrastructure/axios-api'
-import { apiEndpoints } from '../../constants/apiEndpoints'
-import authUtils from '../../infrastructure/authUtils'
+import { http, http_headers } from '@/infrastructure/axios-api'
+import authUtils from '@/infrastructure/authUtils'
+import { apiEndpoints } from '@/constants/apiEndpoints'
 
 export default {
   state: () => ({

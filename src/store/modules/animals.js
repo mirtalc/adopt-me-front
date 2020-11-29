@@ -1,5 +1,5 @@
-import { http_headers } from '../../infrastructure/axios-api'
-import { apiEndpoints } from '../../constants/apiEndpoints'
+import { http_headers } from '@/infrastructure/axios-api'
+import { apiEndpoints } from '@/constants/apiEndpoints'
 
 export default {
   state: {
