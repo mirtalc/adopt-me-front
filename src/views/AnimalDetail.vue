@@ -78,7 +78,9 @@ export default {
   methods: {
     ...mapActions({
       fetchDetails: 'fetchDetails',
-      deleteAnimal: 'deleteAnimal'
+      deleteAnimal: 'deleteAnimal',
+      fetchAllSpecies: 'fetchAllSpecies',
+      fetchAllStatuses: 'fetchAllStatuses'
     }),
     redirectToAllAnimals() {
       this.$router.push({ name: routesInfo.animals.name })
@@ -112,10 +114,14 @@ export default {
     reloadComponent() {
       this.fetchDetails(this.animalId).then((this.editionMode = false))
     },
-    otherClasses: status => bgChooser(status)
+    otherClasses: status => (status ? bgChooser(status) : '')
   },
-  beforeMount() {
-    this.fetchDetails(this.animalId)
+
+  async beforeMount() {
+    await this.fetchDetails(this.animalId)
+    console.log('before mount', this.animal.status.uid)
+    await this.fetchAllSpecies()
+    await this.fetchAllStatuses()
   }
 }
 </script>

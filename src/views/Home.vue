@@ -13,8 +13,7 @@
           class="picture"
         />
         <div>Name: {{ animal.name }}</div>
-        <div>Adoption status: {{ animal.status }}</div>
-        <div>Animal type: (pending)</div>
+        <div>Animal species: {{ animal.species }}</div>
       </div>
     </div>
   </div>

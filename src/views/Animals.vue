@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <p>Here you can see all of our animals!</p>
-    <p>In the future, we'll implement filters by animal type, or state</p>
+    <p>In the future, we'll implement filters by species, or adoption status</p>
 
     <div class="my-4">
       For now, you can
@@ -26,8 +26,8 @@
           class="picture"
         />
         <div>Name: {{ animal.name }}</div>
-        <div>Adoption status: {{ animal.status }}</div>
-        <div>Animal type: (pending)</div>
+        <div>Adoption status: {{ animal.status.name }}</div>
+        <div>Animal species: {{ animal.species }}</div>
       </div>
     </div>
   </div>

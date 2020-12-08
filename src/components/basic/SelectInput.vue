@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style>
+select,
+option {
+  cursor: pointer;
+}
 .withLabels {
   @apply inline-block;
 }

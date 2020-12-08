@@ -1,4 +1,8 @@
 import { http_headers } from '@/infrastructure/axios-api'
+import {
+  assembleAllAnimals,
+  assembleCurrentAnimal
+} from '@/infrastructure/assemblers'
 import { apiEndpoints } from '@/constants/apiEndpoints'
 
 export default {
@@ -10,7 +14,7 @@ export default {
     availableAnimals(state) {
       let filtered = []
       if (state.all.length) {
-        filtered = state.all.filter(animal => animal.status === 'AVAIL')
+        filtered = state.all.filter(animal => animal.status.uid === 'AVAIL')
       }
       return filtered
     }
@@ -28,7 +32,7 @@ export default {
       const bodyParams = {
         name: formData.name,
         status: formData.status,
-        type: formData.type
+        species: formData.species
       }
       return new Promise((resolve, reject) => {
         http_headers
@@ -42,7 +46,8 @@ export default {
         http_headers
           .get(apiEndpoints.animals)
           .then(response => {
-            commit('setAnimals', response.data)
+            const assembledAnimals = assembleAllAnimals(response.data)
+            commit('setAnimals', assembledAnimals)
             resolve(response)
           })
           .catch(error => reject(error))
@@ -54,8 +59,11 @@ export default {
         http_headers
           .get(url)
           .then(response => {
-            const payload = { id: itemId, ...response.data }
-            commit('setCurrent', payload)
+            const assembledCurrent = assembleCurrentAnimal({
+              id: itemId,
+              ...response.data
+            })
+            commit('setCurrent', assembledCurrent)
             resolve(response)
           })
           .catch(error => reject(error))
@@ -70,13 +78,17 @@ export default {
           .catch(error => reject(error))
       })
     },
-    updateAnimal(context, { id, name, status }) {
-      const url = `${apiEndpoints.animals}${id}/`
+    updateAnimal({ rootGetters }, { id, name, speciesUid, statusUid }) {
+      const speciesId = rootGetters.getSpeciesByUid(speciesUid).id
+      const statusId = rootGetters.getStatusByUid(statusUid).id
+
       const bodyParams = {
+        id,
         name,
-        status
-        // type
+        species: speciesId,
+        status: statusId
       }
+      const url = `${apiEndpoints.animals}${id}/`
       return new Promise((resolve, reject) => {
         http_headers
           .patch(url, bodyParams)

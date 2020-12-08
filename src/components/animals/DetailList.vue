@@ -1,15 +1,32 @@
 <template>
-  <ul class="details">
-    <li><span>Pet's proposed name: </span> {{ animal.name }}</li>
-    <li><span>Species: </span> {{ animal.type }} (Still pending...)</li>
-    <li><span>Adoption status: </span>{{ animal.status }}</li>
-    <div class="mt-2"><span> Vaccination history</span></div>
-    <div v-for="vaccination in animal.vaccinations" :key="vaccination.id">
-      <!-- //TODO assembler for preprocessing back response before saving it to state -->
-      {{ vaccination.date_vaccinated }} | Vaccine id:
-      {{ vaccination.vaccine }} | {{ vaccination.incidences }}
+  <div>
+    <div class="row">
+      <div class="row__title">Pet's name</div>
+      <div>{{ animal.name }}</div>
     </div>
-  </ul>
+    <div class="row">
+      <div class="row__title">Species</div>
+      <div>{{ animal.species.name }}</div>
+    </div>
+    <div class="row">
+      <div class="row__title">Status</div>
+      <div>{{ animal.status.name }}</div>
+    </div>
+    <div class="row">
+      <div class="row__title">Vaccination history</div>
+      <div class="w-8/12" v-if="hasVaccinations">
+        <div
+          v-for="vaccination in animal.vaccinations"
+          :key="vaccination.id"
+          class="leading-tight my-3"
+        >
+          {{ vaccination.date_vaccinated }} | {{ vaccination.vaccine.name }} |
+          {{ vaccination.incidences | defaultIfEmpty }}
+        </div>
+      </div>
+      <div v-else>Ø</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,8 +37,28 @@ export default {
       type: [Object, Array],
       required: true
     }
+  },
+  computed: {
+    hasVaccinations() {
+      return this.animal.vaccinations.length
+    }
+  },
+  filters: {
+    defaultIfEmpty: value => {
+      return value ? `Incidences: ${value}` : 'No incidences'
+    }
   }
 }
 </script>
 
-<style></style>
+<style lang="css" scoped>
+.row {
+  display: flex;
+  border-bottom: 1px solid black;
+  @apply py-2;
+}
+
+.row__title {
+  @apply font-bold w-4/12 my-auto;
+}
+</style>

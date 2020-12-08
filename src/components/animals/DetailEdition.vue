@@ -5,13 +5,13 @@
       :value="animalName"
       @inputEvent="handleChange($event)"
     />
-    <!-- <SelectInput
-      :name="'selectedType'"
-      :value="selectedType"
-      :disabledText="'Animal type'"
-      :options="animalTypes"
+    <SelectInput
+      :name="'selectedSpecies'"
+      :value="selectedSpecies"
+      :disabledText="'Animal species'"
+      :options="animalSpecies"
       @inputEvent="handleChange($event)"
-    /> -->
+    />
     <SelectInput
       :name="'selectedStatus'"
       :value="selectedStatus"
@@ -39,15 +39,17 @@ export default {
   },
   data: () => ({
     animalName: '',
-    selectedType: '',
+    selectedSpecies: '',
     selectedStatus: '',
-    animalTypes: [
+    animalSpecies: [
       { text: 'Cat', value: 'CAT' },
       { text: 'Dog', value: 'DOG' }
     ], //TODO obtain from backend
     adoptionStatuses: [
       { text: 'Adopted', value: 'ADOP' },
       { text: 'Deceased', value: 'RIP' },
+      { text: 'Processing', value: 'PROC' },
+      { text: 'Transferred', value: 'TRANS' },
       { text: 'Available', value: 'AVAIL' }
     ] //TODO obtain from backend
   }),
@@ -69,8 +71,8 @@ export default {
     },
     setInitiaValues() {
       this.animalName = this.animal.name
-      this.selectedType = this.animal.type
-      this.selectedStatus = this.animal.status
+      this.selectedSpecies = this.animal.species.uid
+      this.selectedStatus = this.animal.status.uid
     },
     processSubmitOk() {
       this.$toast.success('Changes saved successfully!')
@@ -80,12 +82,11 @@ export default {
       this.$toast.error('Oops, something went wrong')
     },
     clickSave() {
-      console.log('this animal', this.animal)
       const payload = {
         id: this.animal.id,
         name: this.animalName,
-        status: this.selectedStatus
-        // type: 'CAT' //TODO when backend is ready
+        statusUid: this.selectedStatus,
+        speciesUid: this.selectedSpecies
       }
       this.updateAnimal(payload)
         .then(() => this.processSubmitOk())
