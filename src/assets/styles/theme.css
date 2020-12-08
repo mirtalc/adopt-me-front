@@ -68,6 +68,10 @@ label {
 }
 
 .bg-secondary {
+  background-color: #ffd166;
+}
+
+.bg-stable {
   background-color: #4cc9f0;
 }
 

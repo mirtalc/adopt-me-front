@@ -12,7 +12,7 @@
       />
       <TextInput
         :name="'password'"
-        :type="'password'"
+        :inputType="'password'"
         :value="password"
         :labelText="'Password'"
         @inputEvent="handleChange($event)"

@@ -18,7 +18,7 @@ Vue.use(IdleVue, {
 Vue.use(VueRouter)
 Vue.use(VueToast, {
   position: 'top',
-  duration: 3000
+  duration: 4000
 })
 
 Vue.config.productionTip = false

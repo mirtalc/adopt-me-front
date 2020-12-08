@@ -12,12 +12,12 @@
       />
       <TextInput
         :name="'password'"
-        :type="'password'"
+        :inputType="'password'"
         :value="password"
         :labelText="'Password'"
         @inputEvent="handleChange($event)"
       />
-      <button type="submit" class="big-button hover:bg-indigo-500">
+      <button type="submit" class="big-button hover:bg-teal-500">
         Create my user!
       </button>
       <FormErrors :input-errors="inputErrors" :submitError="registerError" />
@@ -115,5 +115,12 @@ export default {
 <style scoped lang="postcss">
 .field {
   @apply p-4 inline-block;
+}
+
+.squared-container {
+  @apply bg-teal-200;
+}
+button {
+  @apply bg-teal-400;
 }
 </style>

@@ -25,7 +25,10 @@ instance_headers.interceptors.response.use(
   response => response,
   error => {
     if (isRefreshTokenRelated(error)) {
-      this.$toast.warning('Your session has expired. Please, log in again')
+      store.dispatch(
+        'showToast',
+        'Your session has expired. Please, log in again'
+      )
       forceLogOut()
       return new Promise((resolve, reject) => reject(error))
     }
@@ -54,7 +57,7 @@ instance_headers.interceptors.response.use(
 )
 
 function isAuthorizationRelated(error) {
-  return error.response.status === 401
+  return error.response ? error.response.status === 401 : false
 }
 
 function isRefreshTokenRelated(error) {
@@ -67,7 +70,6 @@ function redirectToLogin() {
 
 function processUnknownError(error) {
   console.log('Unknown Axios error: ', error)
-  console.log(error)
   store.commit('setError', error)
   redirectToGenericError()
 }

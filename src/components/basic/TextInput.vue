@@ -2,7 +2,7 @@
   <div class="text-field" :class="{ withLabels: !!labelText }">
     <label v-if="labelText" :for="name"> {{ labelText }} </label>
     <input
-      :type="type"
+      :type="inputType"
       :name="name"
       :placeholder="placeholderText"
       :value="value"
@@ -20,7 +20,7 @@ export default {
       type: String,
       required: true
     },
-    type: {
+    inputType: {
       type: String,
       default: 'text'
     },
