@@ -14,14 +14,14 @@
         :name="'selectedSpecies'"
         :value="selectedSpecies"
         :disabledText="'Animal species'"
-        :options="animalSpecies"
+        :options="assembleSelectOptions(animalSpecies)"
         @inputEvent="handleChange($event)"
       />
       <SelectInput
         :name="'selectedStatus'"
         :value="selectedStatus"
         :disabledText="'Adoption status'"
-        :options="adoptionStatuses"
+        :options="assembleSelectOptions(adoptionStatuses)"
         @inputEvent="handleChange($event)"
       />
       <button type="submit" class="big-button hover:bg-indigo-500">
@@ -33,11 +33,12 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import FormErrors from '@/components/FormErrors'
 import TextInput from '@/components/basic/TextInput'
 import SelectInput from '@/components/basic/SelectInput'
 import { routesInfo } from '@/constants/routesInfo'
+import { assembleSelectOptions } from '@/infrastructure/assemblers'
 
 export default {
   name: 'AnimalCreate',
@@ -52,17 +53,13 @@ export default {
     selectedStatus: '',
     inputErrors: [],
     submitError: null,
-    animalSpecies: [
-      { text: 'Cat', value: 'CAT' },
-      { text: 'Dog', value: 'DOG' }
-    ], //TODO obtain from backend
-    adoptionStatuses: [
-      { text: 'Adopted', value: 'ADOP' },
-      { text: 'Deceased', value: 'RIP' },
-      { text: 'Available', value: 'AVAIL' }
-    ] //TODO obtain from backend
+    assembleSelectOptions
   }),
   computed: {
+    ...mapState({
+      animalSpecies: state => state.species.all,
+      adoptionStatuses: state => state.status.all
+    }),
     hasInputErrors() {
       return !!this.inputErrors.length
     }
@@ -119,6 +116,11 @@ export default {
   beforeMount() {
     this.fetchAllSpecies()
     this.fetchAllStatuses()
+  },
+  mounted() {
+    console.log('mounted')
+    console.log(this.adoptionStatuses)
+    console.log(this.animalSpecies)
   }
 }
 </script>

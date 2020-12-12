@@ -1,7 +1,7 @@
 <template>
   <div class="w-full bg-indigo-900 text-gray-400">
     <ul class="flex">
-      <!-- //TODO v-for! -->
+      <!-- //REVIEW v-for! -->
       <NavigationLink
         v-if="isLogged"
         :text="routesInfo.home.text"

@@ -40,7 +40,7 @@ export default {
       return this.$route.name
     },
     shouldBeSeparated() {
-      //TODO export to constant
+      //REVIEW export to constant
       const separatedOptions = [
         routesInfo.logout.name,
         routesInfo.register.name

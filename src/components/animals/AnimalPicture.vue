@@ -21,4 +21,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+img {
+  max-height: 300px;
+}
+</style>

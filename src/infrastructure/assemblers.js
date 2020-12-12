@@ -56,3 +56,15 @@ export function assembleCurrentAnimal({
 
   return assembledAnimal
 }
+
+export const assembleSelectOptions = payload => {
+  let assembledOptions = []
+  payload.forEach(({ uid, name }) => {
+    let option = {
+      value: uid,
+      text: name
+    }
+    assembledOptions.push(option)
+  })
+  return assembledOptions
+}

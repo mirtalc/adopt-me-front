@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { routesInfo } from '@/constants/routesInfo'
 import ConfirmationWarning from '@/components/ConfirmationWarning'
 import DetailList from '@/components/animals/DetailList'
@@ -72,6 +72,9 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      setCurrentToNull: 'setCurrentToNull'
+    }),
     ...mapActions({
       fetchDetails: 'fetchDetails',
       deleteAnimal: 'deleteAnimal',
@@ -120,7 +123,7 @@ export default {
   },
   beforeDestroy() {
     //TODO convert to mutation
-    this.$store.state.animals.current = null
+    this.setCurrentToNull()
   }
 }
 </script>

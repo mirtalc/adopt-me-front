@@ -26,6 +26,9 @@ export default {
     },
     setCurrent(state, payload) {
       state.current = payload
+    },
+    setCurrentToNull(state) {
+      state.current = null
     }
   },
   actions: {

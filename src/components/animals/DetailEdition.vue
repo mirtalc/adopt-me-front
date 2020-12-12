@@ -9,14 +9,14 @@
       :name="'selectedSpecies'"
       :value="selectedSpecies"
       :disabledText="'Animal species'"
-      :options="animalSpecies"
+      :options="assembleSelectOptions(animalSpecies)"
       @inputEvent="handleChange($event)"
     />
     <SelectInput
       :name="'selectedStatus'"
       :value="selectedStatus"
       :disabledText="'Adoption status'"
-      :options="adoptionStatuses"
+      :options="assembleSelectOptions(adoptionStatuses)"
       @inputEvent="handleChange($event)"
     />
     <button class="big-button hover:bg-indigo-500" @click="clickSave()">
@@ -26,10 +26,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import TextInput from '@/components/basic/TextInput'
 import SelectInput from '@/components/basic/SelectInput'
 import { routesInfo } from '@/constants/routesInfo'
+import { assembleSelectOptions } from '@/infrastructure/assemblers'
 
 export default {
   name: 'DetailEdition',
@@ -41,23 +42,19 @@ export default {
     animalName: '',
     selectedSpecies: '',
     selectedStatus: '',
-    animalSpecies: [
-      { text: 'Cat', value: 'CAT' },
-      { text: 'Dog', value: 'DOG' }
-    ], //TODO obtain from backend
-    adoptionStatuses: [
-      { text: 'Adopted', value: 'ADOP' },
-      { text: 'Deceased', value: 'RIP' },
-      { text: 'Processing', value: 'PROC' },
-      { text: 'Transferred', value: 'TRANS' },
-      { text: 'Available', value: 'AVAIL' }
-    ] //TODO obtain from backend
+    assembleSelectOptions
   }),
   props: {
     animal: {
       type: [Object, Array],
       required: true
     }
+  },
+  computed: {
+    ...mapState({
+      animalSpecies: state => state.species.all,
+      adoptionStatuses: state => state.status.all
+    })
   },
   methods: {
     ...mapActions({
