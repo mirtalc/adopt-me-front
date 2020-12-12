@@ -20,11 +20,7 @@
         :class="otherClasses(animal.status)"
         @click="sendToDetails(animal.id)"
       >
-        <img
-          src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
-          alt="Placeholder"
-          class="picture"
-        />
+        <AnimalPicture :photo="animal.photo" />
         <div>Name: {{ animal.name }}</div>
         <div>Adoption status: {{ animal.status.name }}</div>
         <div>Animal species: {{ animal.species }}</div>
@@ -36,8 +32,9 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import { routesInfo } from '@/constants/routesInfo'
-import InlineLink from '@/components/InlineLink'
 import { bgChooser } from '@/helpers'
+import InlineLink from '@/components/InlineLink'
+import AnimalPicture from '@/components/animals/AnimalPicture'
 
 export default {
   name: 'Animals',
@@ -46,7 +43,8 @@ export default {
     loading: false
   }),
   components: {
-    InlineLink
+    InlineLink,
+    AnimalPicture
   },
   computed: {
     ...mapState({

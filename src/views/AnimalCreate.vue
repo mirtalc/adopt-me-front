@@ -11,10 +11,10 @@
         @inputEvent="handleChange($event)"
       />
       <SelectInput
-        :name="'selectedType'"
-        :value="selectedType"
-        :disabledText="'Animal type'"
-        :options="animalTypes"
+        :name="'selectedSpecies'"
+        :value="selectedSpecies"
+        :disabledText="'Animal species'"
+        :options="animalSpecies"
         @inputEvent="handleChange($event)"
       />
       <SelectInput
@@ -25,7 +25,7 @@
         @inputEvent="handleChange($event)"
       />
       <button type="submit" class="big-button hover:bg-indigo-500">
-        Create pet {{ animalName }} {{ selectedType }} {{ selectedStatus }}
+        Create pet {{ animalName }} {{ selectedSpecies }} {{ selectedStatus }}
       </button>
       <FormErrors :input-errors="inputErrors" :submitError="submitError" />
     </form>
@@ -48,11 +48,11 @@ export default {
   },
   data: () => ({
     animalName: '',
-    selectedType: '',
+    selectedSpecies: '',
     selectedStatus: '',
     inputErrors: [],
     submitError: null,
-    animalTypes: [
+    animalSpecies: [
       { text: 'Cat', value: 'CAT' },
       { text: 'Dog', value: 'DOG' }
     ], //TODO obtain from backend
@@ -69,7 +69,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      animalCreate: 'animalCreate'
+      animalCreate: 'animalCreate',
+      fetchAllSpecies: 'fetchAllSpecies',
+      fetchAllStatuses: 'fetchAllStatuses'
     }),
     handleChange(payload) {
       this[payload.targetName] = payload.targetValue
@@ -86,22 +88,22 @@ export default {
       this.cleanErrors()
       if (!this.animalName)
         this.inputErrors.push('Pet name field may not be empty')
-      if (!this.selectedType)
-        this.inputErrors.push('You must choose a valid animal type')
+      if (!this.selectedSpecies)
+        this.inputErrors.push('You must choose a valid species')
       if (!this.selectedStatus)
         this.inputErrors.push('You must choose a valid adoption status')
     },
     submit() {
       this.animalCreate({
         name: this.animalName,
-        status: this.selectedStatus,
-        type: this.selectedTyped
+        statusUid: this.selectedStatus,
+        speciesUid: this.selectedSpecies
       })
         .then(() => this.processSubmitOk())
         .catch(error => this.processSubmitError(error))
     },
     processSubmitOk() {
-      this.$toast.success('Sucess! Animal registered')
+      this.$toast.success('Success! Animal registered')
       this.redirectToAllAnimals()
     },
     processSubmitError(error) {
@@ -113,6 +115,10 @@ export default {
     redirectToAllAnimals() {
       this.$router.push({ name: routesInfo.animals.name })
     }
+  },
+  beforeMount() {
+    this.fetchAllSpecies()
+    this.fetchAllStatuses()
   }
 }
 </script>

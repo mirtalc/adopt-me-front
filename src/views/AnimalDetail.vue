@@ -32,13 +32,7 @@
       @cancelEvent="cancelAction()"
       @confirmEvent="confirmAction()"
     />
-
-    <img
-      src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
-      alt="Placeholder"
-      class="picture"
-    />
-
+    <AnimalPicture :photo="animal.photo" />
     <DetailEdition
       v-if="editionMode"
       :animal="this.animal"
@@ -54,6 +48,7 @@ import { routesInfo } from '@/constants/routesInfo'
 import ConfirmationWarning from '@/components/ConfirmationWarning'
 import DetailList from '@/components/animals/DetailList'
 import DetailEdition from '@/components/animals/DetailEdition'
+import AnimalPicture from '@/components/animals/AnimalPicture'
 import { bgChooser } from '@/helpers'
 
 export default {
@@ -61,7 +56,8 @@ export default {
   components: {
     ConfirmationWarning,
     DetailList,
-    DetailEdition
+    DetailEdition,
+    AnimalPicture
   },
   data: () => ({
     showConfirmation: false,
@@ -119,9 +115,12 @@ export default {
 
   async beforeMount() {
     await this.fetchDetails(this.animalId)
-    console.log('before mount', this.animal.status.uid)
     await this.fetchAllSpecies()
     await this.fetchAllStatuses()
+  },
+  beforeDestroy() {
+    //TODO convert to mutation
+    this.$store.state.animals.current = null
   }
 }
 </script>

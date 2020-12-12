@@ -1,7 +1,8 @@
 import { http_headers } from '@/infrastructure/axios-api'
 import {
   assembleAllAnimals,
-  assembleCurrentAnimal
+  assembleCurrentAnimal,
+  assembleAnimalBodyParams
 } from '@/infrastructure/assemblers'
 import { apiEndpoints } from '@/constants/apiEndpoints'
 
@@ -28,12 +29,8 @@ export default {
     }
   },
   actions: {
-    animalCreate(context, formData) {
-      const bodyParams = {
-        name: formData.name,
-        status: formData.status,
-        species: formData.species
-      }
+    animalCreate({ rootGetters }, formData) {
+      const bodyParams = assembleAnimalBodyParams(rootGetters, formData)
       return new Promise((resolve, reject) => {
         http_headers
           .post(apiEndpoints.animals, bodyParams)
@@ -78,17 +75,9 @@ export default {
           .catch(error => reject(error))
       })
     },
-    updateAnimal({ rootGetters }, { id, name, speciesUid, statusUid }) {
-      const speciesId = rootGetters.getSpeciesByUid(speciesUid).id
-      const statusId = rootGetters.getStatusByUid(statusUid).id
-
-      const bodyParams = {
-        id,
-        name,
-        species: speciesId,
-        status: statusId
-      }
-      const url = `${apiEndpoints.animals}${id}/`
+    updateAnimal({ rootGetters }, payload) {
+      const bodyParams = assembleAnimalBodyParams(rootGetters, payload)
+      const url = `${apiEndpoints.animals}${payload.id}/`
       return new Promise((resolve, reject) => {
         http_headers
           .patch(url, bodyParams)

@@ -7,11 +7,7 @@
         :key="animal.id"
         class="card bg-featured"
       >
-        <img
-          src="https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder"
-          alt="Placeholder"
-          class="picture"
-        />
+        <AnimalPicture :photo="animal.photo" />
         <div>Name: {{ animal.name }}</div>
         <div>Animal species: {{ animal.species }}</div>
       </div>
@@ -21,9 +17,13 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import AnimalPicture from '@/components/animals/AnimalPicture'
 
 export default {
   name: 'Home',
+  components: {
+    AnimalPicture
+  },
   computed: {
     ...mapGetters({
       availableAnimals: 'availableAnimals'

@@ -1,12 +1,21 @@
-//TODO replace with environmental variables, like:
-// const backendServer = `${process.env.BACKEND_ROOT}`
-const backendServer = 'http://127.0.0.1:8000/api/'
+const backendServer = `${process.env.VUE_APP_BACKEND_ROOT}`
+const mediaServer = `${process.env.VUE_APP_MEDIA_ROOT}`
+
 export const apiEndpoints = {
   animals: 'animals/',
   login: 'token/',
   refresh: 'token-refresh/',
   register: 'register/',
   vaccines: 'vaccines/'
+}
+
+export const mediaEndpoints = {
+  pets: 'pets/'
+}
+
+export const fullMediaEndpoints = {
+  mediaServer: () => mediaServer,
+  animals: () => `${mediaServer}${mediaEndpoints.pets}`
 }
 
 //REVIEW: maybe this is unnecessary
