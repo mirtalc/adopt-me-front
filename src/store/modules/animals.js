@@ -4,7 +4,7 @@ import {
   assembleCurrentAnimal,
   assembleAnimalBodyParams
 } from '@/infrastructure/assemblers'
-import { apiEndpoints } from '@/constants/apiEndpoints'
+import { apiEndpoints } from '@/constants/endpoints'
 
 export default {
   state: {

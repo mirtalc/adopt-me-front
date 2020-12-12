@@ -1,7 +1,7 @@
 import axios from 'axios'
 import authUtils from '@/infrastructure/authUtils'
 import router from '@/router'
-import { fullApiEndpoints, apiEndpoints } from '@/constants/apiEndpoints'
+import { fullApiEndpoints, apiEndpoints } from '@/constants/endpoints'
 import { routesInfo } from '@/constants/routesInfo'
 import store from '@/store'
 

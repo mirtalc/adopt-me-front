@@ -1,4 +1,4 @@
-import { fullMediaEndpoints } from '@/constants/apiEndpoints'
+import { fullMediaEndpoints } from '@/constants/endpoints'
 
 const getPhotoPath = photo =>
   photo ? `${fullMediaEndpoints.mediaServer()}${photo}` : null
