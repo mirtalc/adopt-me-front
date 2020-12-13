@@ -13,7 +13,7 @@ const routes = [
   {
     path: routesInfo.animals.path,
     name: routesInfo.animals.name,
-    component: () => import('./views/Animals'),
+    component: () => import('./views/AnimalList'),
     meta: {
       requiresLogin: true
     }

@@ -1,6 +1,8 @@
 <template>
   <div class="page">
-    <p>Here you can see all of our animals!</p>
+    <p class="title">
+      All animals from our shelter
+    </p>
     <p>In the future, we'll implement filters by species, or adoption status</p>
 
     <div class="my-4">
@@ -11,19 +13,19 @@
       />
       in our database (even if you are not an ADMIN)
     </div>
-    <img v-if="loading" class="picture" src="../assets/img/spinner.gif" />
-    <div class="grid-container grid-cols-1 sm:grid-cols-2">
+    <LoadingSpinner v-if="isLoading" />
+    <div v-else class="grid-container grid-cols-1 sm:grid-cols-2">
       <div
-        v-for="animal in animals"
+        v-for="animal in sortedAnimals"
         :key="animal.id"
         class="card"
         :class="otherClasses(animal.status)"
         @click="sendToDetails(animal.id)"
       >
-        <AnimalPicture :photo="animal.photo" />
+        <AnimalPicture :animal="animal" />
         <div>Name: {{ animal.name }}</div>
         <div>Adoption status: {{ animal.status.name }}</div>
-        <div>Animal species: {{ animal.species }}</div>
+        <div>Animal species: {{ animal.species.name }}</div>
       </div>
     </div>
   </div>
@@ -35,21 +37,26 @@ import { routesInfo } from '@/constants/routesInfo'
 import { bgChooser } from '@/helpers'
 import InlineLink from '@/components/InlineLink'
 import AnimalPicture from '@/components/animals/AnimalPicture'
+import LoadingSpinner from '@/components/basic/LoadingSpinner'
 
 export default {
-  name: 'Animals',
+  name: 'AnimalList',
   data: () => ({
     routesInfo,
-    loading: false
+    isLoading: false
   }),
   components: {
     InlineLink,
-    AnimalPicture
+    AnimalPicture,
+    LoadingSpinner
   },
   computed: {
     ...mapState({
       animals: state => state.animals.all
-    })
+    }),
+    sortedAnimals() {
+      return [...this.animals].reverse()
+    }
   },
   methods: {
     ...mapActions({
@@ -67,8 +74,8 @@ export default {
     otherClasses: status => bgChooser(status)
   },
   created() {
-    this.loading = true
-    this.fetchAnimals().finally(() => (this.loading = false))
+    this.isLoading = true
+    this.fetchAnimals().finally(() => (this.isLoading = false))
   },
   onIdle() {
     this.userLogout().then(() => {

@@ -1,7 +1,7 @@
 export const routesInfo = {
   animals: {
     path: '/animals-all',
-    name: 'Animals',
+    name: 'AnimalList',
     text: 'All pets'
   },
   animalCreate: {

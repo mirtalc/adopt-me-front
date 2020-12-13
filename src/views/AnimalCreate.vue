@@ -1,6 +1,6 @@
 <template>
   <div class="squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl">
-    <p class="title">Register a new animal</p>
+    <p class="subtitle">Register a new animal</p>
     <p>Enter the details of the new animal</p>
 
     <form @submit.prevent="checkAndSubmit" class="centered-container">
@@ -101,7 +101,7 @@ export default {
     },
     processSubmitOk() {
       this.$toast.success('Success! Animal registered')
-      this.redirectToAllAnimals()
+      this.redirectToAnimalList()
     },
     processSubmitError(error) {
       this.$toast.error('Oops, something went wrong')
@@ -109,7 +109,7 @@ export default {
         'Unknown error; please try again later. More info at Console.'
       console.warn('Error while registering animal: ', error)
     },
-    redirectToAllAnimals() {
+    redirectToAnimalList() {
       this.$router.push({ name: routesInfo.animals.name })
     }
   },
