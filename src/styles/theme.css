@@ -1,8 +1,7 @@
 /* Global tag styles */
 body {
   background-color: whitesmoke;
-  @apply font-sans;
-  /* background-image: url('../img/pattern.png'); */
+  font-family: 'Raleway', sans-serif;
 }
 
 input,
@@ -48,7 +47,7 @@ label {
 }
 
 .page {
-  @apply p-6;
+  @apply px-6;
 }
 
 /* (pseudo)components */

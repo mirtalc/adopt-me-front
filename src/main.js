@@ -6,7 +6,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import { routesInfo } from '@/constants/routesInfo'
-import '@/assets/styles'
+import '@/styles'
 import 'vue-toast-notification/dist/theme-default.css'
 
 const eventsHub = new Vue()
