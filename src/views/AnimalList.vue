@@ -5,7 +5,7 @@
     </p>
     <p>In the future, we'll implement filters by species, or adoption status</p>
 
-    <div class="my-4">
+    <div class="my-2">
       For now, you can
       <InlineLink
         :routeName="routesInfo.animalCreate.name"

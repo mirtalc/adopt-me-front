@@ -1,6 +1,13 @@
 <template>
   <div class="page">
-    <h1>Pets that are available for adopting!</h1>
+    <div class="title">Available for adoption pets ^^</div>
+    <div class="text-center text-sm sm:text-xl">
+      <p>
+        These animals are looking for a new home.
+      </p>
+      <p>Will you help them find one?</p>
+    </div>
+
     <div class="max-w-2xl py-4 mx-auto">
       <div
         v-for="animal in availableAnimals"

@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <div class="row__title">Status</div>
-      <div>{{ currentAnimal.status }}</div>
+      <div>{{ currentAnimal.status.name }}</div>
     </div>
     <div class="row">
       <div class="row__title">Vaccination history</div>

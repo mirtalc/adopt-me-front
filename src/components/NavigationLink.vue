@@ -10,7 +10,7 @@
         :src="require(`@/assets/img/${imgSrc}`)"
         alt=""
       />
-      <span v-if="visibleText">{{ text }}</span>
+      <span v-if="visibleText" class="font-bold">{{ text }}</span>
     </li>
   </router-link>
 </template>

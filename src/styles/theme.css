@@ -1,7 +1,6 @@
 /* Global tag styles */
 body {
   background-color: whitesmoke;
-  font-family: 'Raleway', sans-serif;
 }
 
 input,
@@ -47,7 +46,7 @@ label {
 }
 
 .page {
-  @apply px-6;
+  @apply p-6;
 }
 
 /* (pseudo)components */
@@ -102,6 +101,10 @@ label {
 
 @media only screen and (min-width: 600px) {
   .title {
-    @apply text-center text-3xl my-6 font-bold;
+    @apply text-center text-3xl mb-6 mt-3 font-bold;
   }
+}
+
+:root {
+  @apply font-raleway;
 }
