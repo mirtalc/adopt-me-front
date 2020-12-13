@@ -7,7 +7,7 @@
       <img
         v-if="visibleLogo"
         class="logo"
-        src="../assets/img/logo.png"
+        :src="require(`@/assets/img/${imgSrc}`)"
         alt=""
       />
       <span v-if="visibleText">{{ text }}</span>
@@ -16,7 +16,12 @@
 </template>
 
 <script>
-import { routesInfo } from '@/constants/routesInfo'
+import {
+  iconRelation,
+  sectionsWithIcon,
+  separatedSections
+} from '@/constants/navbarSettings'
+
 export default {
   name: 'NavigationLink',
   props: {
@@ -30,22 +35,20 @@ export default {
     }
   },
   computed: {
+    imgSrc() {
+      return iconRelation[this.routeName]
+    },
     visibleLogo() {
-      return this.routeName === routesInfo.home.name
+      return sectionsWithIcon.includes(this.routeName)
     },
     visibleText() {
-      return this.routeName !== routesInfo.home.name
+      return !this.visibleLogo
     },
     currentRouteName() {
       return this.$route.name
     },
     shouldBeSeparated() {
-      //REVIEW export to constant
-      const separatedOptions = [
-        routesInfo.logout.name,
-        routesInfo.register.name
-      ]
-      return separatedOptions.includes(this.routeName)
+      return separatedSections.includes(this.routeName)
     },
     isCurrentSection() {
       return this.routeName === this.currentRouteName

@@ -9,6 +9,11 @@
       />
       <NavigationLink
         v-if="isLogged"
+        :text="routesInfo.animalCreate.text"
+        :route-name="routesInfo.animalCreate.name"
+      />
+      <NavigationLink
+        v-if="isLogged"
         :text="routesInfo.animals.text"
         :route-name="routesInfo.animals.name"
       />

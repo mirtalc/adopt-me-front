@@ -12,6 +12,7 @@ body {
 .logo {
   @apply mx-auto;
   padding: 0;
+  max-width: 40px;
 }
 
 input,
