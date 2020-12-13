@@ -2,21 +2,21 @@
   <div>
     <div class="row">
       <div class="row__title">Pet's name</div>
-      <div>{{ animal.name }}</div>
+      <div>{{ currentAnimal ? currentAnimal.name : '' }}</div>
     </div>
     <div class="row">
       <div class="row__title">Species</div>
-      <div>{{ animal.species.name }}</div>
+      <div>{{ currentAnimal.species.name }}</div>
     </div>
     <div class="row">
       <div class="row__title">Status</div>
-      <div>{{ animal.status.name }}</div>
+      <div>{{ currentAnimal.status }}</div>
     </div>
     <div class="row">
       <div class="row__title">Vaccination history</div>
       <div class="w-8/12" v-if="hasVaccinations">
         <div
-          v-for="vaccination in animal.vaccinations"
+          v-for="vaccination in currentAnimal.vaccinations"
           :key="vaccination.id"
           class="leading-tight my-3"
         >
@@ -33,14 +33,14 @@
 export default {
   name: 'DetailList',
   props: {
-    animal: {
+    currentAnimal: {
       type: [Object, Array],
       required: true
     }
   },
   computed: {
     hasVaccinations() {
-      return this.animal.vaccinations.length
+      return this.currentAnimal.vaccinations.length
     }
   },
   filters: {

@@ -1,21 +1,30 @@
 <template>
-  <img :src="imgSource" alt="" class="picture" />
+  <div>
+    <img v-if="animal.photo" :src="animal.photo" class="picture" />
+    <img
+      v-else
+      :src="require(`@/assets/img/default/${imgSrc}`)"
+      class="picture"
+    />
+  </div>
 </template>
 
 <script>
 export default {
   name: 'AnimalPicture',
   props: {
-    photo: {
-      type: String,
-      default: null
+    animal: {
+      type: Object,
+      required: true
     }
   },
   computed: {
-    imgSource() {
-      return this.photo
-        ? this.photo
-        : 'https://via.placeholder.com/300x200/000000/FFFFFF/?text=Animal+Picture+Placeholder'
+    imgSrc() {
+      const speciesRelation = {
+        CAT: 'cat-pic.png',
+        DOG: 'dog-pic.jpg'
+      }
+      return speciesRelation[this.animal.species.uid]
     }
   }
 }

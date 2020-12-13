@@ -1,5 +1,6 @@
-// import { http_headers } from '@/infrastructure/axios-api'
-// import { apiEndpoints } from '@/constants/endpoints'
+import { http_headers } from '@/infrastructure/axios-api'
+import { apiEndpoints } from '@/constants/endpoints'
+import { assembleSpecies } from '@/infrastructure/assemblers'
 
 export default {
   state: {
@@ -17,12 +18,18 @@ export default {
   },
   actions: {
     fetchAllSpecies({ commit }) {
-      //TODO
-      const assembledSpecies = [
-        { id: 1, name: 'Cat', uid: 'CAT' },
-        { id: 2, name: 'Dog', uid: 'DOG' }
-      ]
-      commit('setSpecies', assembledSpecies)
+      let url = apiEndpoints.species
+
+      return new Promise((resolve, reject) => {
+        http_headers
+          .get(url)
+          .then(response => {
+            const assembledSpecies = assembleSpecies(response.data)
+            commit('setSpecies', assembledSpecies)
+            resolve()
+          })
+          .catch(error => reject(error))
+      })
     }
   }
 }

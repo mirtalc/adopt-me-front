@@ -6,7 +6,9 @@ export const apiEndpoints = {
   login: 'token/',
   refresh: 'token-refresh/',
   register: 'register/',
-  vaccines: 'vaccines/'
+  vaccines: 'vaccines/',
+  species: 'species/',
+  adoptionStatus: 'adoption-statuses/'
 }
 
 export const mediaEndpoints = {

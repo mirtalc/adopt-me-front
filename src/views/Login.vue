@@ -1,6 +1,6 @@
 <template>
   <div class="squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl">
-    <p class="title">Welcome back! <span class="ml-4">\(ᵔᵕᵔ)/</span></p>
+    <p class="subtitle">Welcome back! <span class="ml-4">\(ᵔᵕᵔ)/</span></p>
     <p>Please, enter your credentials.</p>
 
     <form @submit.prevent="checkAndLogin" class="centered-container">
@@ -21,7 +21,7 @@
         Log me in!
       </button>
       <FormErrors :input-errors="inputErrors" :submitError="loginError" />
-      <div class="mt-20 secondary">
+      <div class="mt-20 text-gray-600">
         Still not a member? You can register
         <InlineLink :routeName="routesInfo.register.name" :text="'here'" />
       </div>

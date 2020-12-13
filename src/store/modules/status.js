@@ -1,5 +1,6 @@
-// import { http_headers } from '@/infrastructure/axios-api'
-// import { apiEndpoints } from '@/constants/endpoints'
+import { http_headers } from '@/infrastructure/axios-api'
+import { apiEndpoints } from '@/constants/endpoints'
+import { assembleAdoptionStatuses } from '@/infrastructure/assemblers'
 
 export default {
   state: {
@@ -17,15 +18,18 @@ export default {
   },
   actions: {
     fetchAllStatuses({ commit }) {
-      //TODO
-      const assembledSpecies = [
-        { id: 1, name: 'Processing', uid: 'PROC' },
-        { id: 2, name: 'Available', uid: 'AVAIL' },
-        { id: 3, name: 'Adopted', uid: 'ADOP' },
-        { id: 4, name: 'Transferred', uid: 'TRANS' },
-        { id: 5, name: 'Deceased', uid: 'RIP' }
-      ]
-      commit('setStatuses', assembledSpecies)
+      let url = apiEndpoints.adoptionStatus
+
+      return new Promise((resolve, reject) => {
+        http_headers
+          .get(url)
+          .then(response => {
+            const assembledStatuses = assembleAdoptionStatuses(response.data)
+            commit('setStatuses', assembledStatuses)
+            resolve()
+          })
+          .catch(error => reject(error))
+      })
     }
   }
 }

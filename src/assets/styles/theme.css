@@ -1,18 +1,8 @@
-/* Tag styles */
+/* Global tag styles */
 body {
   background-color: whitesmoke;
   @apply font-sans;
   /* background-image: url('../img/pattern.png'); */
-}
-
-.picture {
-  @apply mx-auto p-4;
-}
-
-.logo {
-  @apply mx-auto;
-  padding: 0;
-  max-width: 40px;
 }
 
 input,
@@ -32,6 +22,16 @@ label {
   @apply min-w-32 inline-block;
 }
 
+.picture {
+  @apply mx-auto p-4;
+}
+
+.logo {
+  @apply mx-auto;
+  padding: 0;
+  max-width: 40px;
+}
+
 /* Class styles */
 /* (pseudo)layouts */
 .grid-container {
@@ -44,7 +44,7 @@ label {
 }
 
 .centered-container {
-  @apply m-auto text-center pt-8;
+  @apply m-auto text-center pt-6;
 }
 
 .page {
@@ -58,6 +58,10 @@ label {
 
 .big-button:focus {
   @apply outline-none;
+}
+
+.btn {
+  @apply bg-red-400 mx-3 py-2 px-4 text-white;
 }
 
 .card {
@@ -84,19 +88,21 @@ label {
   @apply my-4;
 }
 
-.btn {
-  @apply bg-red-400 mx-3 py-2 px-4 text-white;
-}
-
 /* text stylings */
 .error-message {
   @apply text-red-700 font-medium;
 }
 
-.secondary {
-  @apply text-gray-600;
+.title {
+  @apply text-center text-xl my-2;
 }
 
-.title {
+.subtitle {
   @apply text-xl font-bold my-2;
+}
+
+@media only screen and (min-width: 600px) {
+  .title {
+    @apply text-center text-3xl my-6 font-bold;
+  }
 }

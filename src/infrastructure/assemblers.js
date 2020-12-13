@@ -11,7 +11,7 @@ export function assembleAllAnimals(response) {
     let animal = {
       id,
       name,
-      species: species.name,
+      species,
       status,
       photo: photo_path
     }
@@ -67,4 +67,31 @@ export const assembleSelectOptions = payload => {
     assembledOptions.push(option)
   })
   return assembledOptions
+}
+
+export const assembleSpecies = response => {
+  let assembledSpecies = []
+  response.forEach(({ id, name, uid }) => {
+    let species = {
+      id,
+      name,
+      uid
+    }
+    assembledSpecies.push(species)
+  })
+  return assembledSpecies
+}
+
+export const assembleAdoptionStatuses = response => {
+  let assembledStatuses = []
+  response.forEach(({ id, name, uid, description }) => {
+    let status = {
+      id,
+      name,
+      uid,
+      description
+    }
+    assembledStatuses.push(status)
+  })
+  return assembledStatuses
 }

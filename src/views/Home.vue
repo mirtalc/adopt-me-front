@@ -7,9 +7,9 @@
         :key="animal.id"
         class="card bg-featured"
       >
-        <AnimalPicture :photo="animal.photo" />
+        <AnimalPicture :animal="animal" />
         <div>Name: {{ animal.name }}</div>
-        <div>Animal species: {{ animal.species }}</div>
+        <div>Animal species: {{ animal.species.name }}</div>
       </div>
     </div>
   </div>

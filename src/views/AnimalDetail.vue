@@ -1,44 +1,48 @@
 <template>
-  <div
-    class="border p-6 sm:max-w-2xl sm:mx-auto sm:my-16"
-    :class="otherClasses(animal.status)"
-  >
-    <div class="flex text-2xl">
-      <p>
-        {{ animal.name }}
-        <span class="hidden sm:inline"> - Detailed information</span>
-      </p>
-      <img
-        v-if="editionMode"
-        src="../assets/img/icons/discard.png"
-        class="icon ml-auto px-2"
-        @click="clickDiscard()"
-      />
-      <img
-        v-else
-        src="../assets/img/icons/edit.png"
-        class="icon ml-auto px-2"
-        @click="clickEdit()"
-      />
-      <img
-        src="../assets/img/icons/trash.png"
-        class="icon"
-        @click="clickDelete()"
-      />
-    </div>
+  <div>
+    <LoadingSpinner v-if="isLoading" />
+    <div
+      v-else
+      class="border p-6 sm:max-w-2xl sm:mx-auto sm:my-16"
+      :class="otherClasses(animal.status)"
+    >
+      <div class="flex text-2xl">
+        <p>
+          {{ animal.name }}
+          <span class="hidden sm:inline"> - Detailed information</span>
+        </p>
+        <img
+          v-if="editionMode"
+          src="../assets/img/icons/discard.png"
+          class="icon ml-auto px-2"
+          @click="clickDiscard()"
+        />
+        <img
+          v-else
+          src="../assets/img/icons/edit.png"
+          class="icon ml-auto px-2"
+          @click="clickEdit()"
+        />
+        <img
+          src="../assets/img/icons/trash.png"
+          class="icon"
+          @click="clickDelete()"
+        />
+      </div>
 
-    <ConfirmationWarning
-      v-show="showConfirmation"
-      @cancelEvent="cancelAction()"
-      @confirmEvent="confirmAction()"
-    />
-    <AnimalPicture :photo="animal.photo" />
-    <DetailEdition
-      v-if="editionMode"
-      :animal="this.animal"
-      @editedEvent="reloadComponent()"
-    />
-    <DetailList v-else :animal="this.animal" />
+      <ConfirmationWarning
+        v-show="showConfirmation"
+        @cancelEvent="cancelAction()"
+        @confirmEvent="confirmAction()"
+      />
+      <AnimalPicture :animal="animal" />
+      <DetailEdition
+        v-if="editionMode"
+        :animal="this.animal"
+        @editedEvent="reloadComponent()"
+      />
+      <DetailList v-else :currentAnimal="this.animal" />
+    </div>
   </div>
 </template>
 
@@ -49,6 +53,7 @@ import ConfirmationWarning from '@/components/ConfirmationWarning'
 import DetailList from '@/components/animals/DetailList'
 import DetailEdition from '@/components/animals/DetailEdition'
 import AnimalPicture from '@/components/animals/AnimalPicture'
+import LoadingSpinner from '@/components/basic/LoadingSpinner'
 import { bgChooser } from '@/helpers'
 
 export default {
@@ -57,11 +62,13 @@ export default {
     ConfirmationWarning,
     DetailList,
     DetailEdition,
-    AnimalPicture
+    AnimalPicture,
+    LoadingSpinner
   },
   data: () => ({
     showConfirmation: false,
-    editionMode: false
+    editionMode: false,
+    isLoading: false
   }),
   computed: {
     animalId() {
@@ -81,12 +88,12 @@ export default {
       fetchAllSpecies: 'fetchAllSpecies',
       fetchAllStatuses: 'fetchAllStatuses'
     }),
-    redirectToAllAnimals() {
+    redirectToAnimalList() {
       this.$router.push({ name: routesInfo.animals.name })
     },
     processDeleteOk() {
       this.$toast.success('Successfully deleted!')
-      this.redirectToAllAnimals()
+      this.redirectToAnimalList()
     },
     processDeleteError(error) {
       this.$toast.error('Oops, something went wrong')
@@ -117,12 +124,13 @@ export default {
   },
 
   async beforeMount() {
-    await this.fetchDetails(this.animalId)
-    await this.fetchAllSpecies()
+    this.isLoading = true
     await this.fetchAllStatuses()
+    await this.fetchAllSpecies()
+    await this.fetchDetails(this.animalId)
+    this.isLoading = false
   },
   beforeDestroy() {
-    //TODO convert to mutation
     this.setCurrentToNull()
   }
 }
