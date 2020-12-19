@@ -3,16 +3,23 @@
     <p class="title">
       All animals from our shelter
     </p>
-    <p>In the future, we'll implement filters by species, or adoption status</p>
-
-    <div class="my-2">
-      For now, you can
+    <p>
+      Here is a list of all animals that the pet shelter processes (or has
+      processed).
+    </p>
+    <p class="my-2">
+      <span class="font-bold"> Click on any animal</span> to see more details,
+      edit it, or delete it.
+    </p>
+    <p>
+      You can also
       <InlineLink
         :routeName="routesInfo.animalCreate.name"
         :text="'register a new animal'"
+        class="text-indigo-600"
       />
-      in our database (even if you are not an ADMIN)
-    </div>
+      in our database.
+    </p>
     <LoadingSpinner v-if="isLoading" />
     <div v-else class="grid-container grid-cols-1 sm:grid-cols-2">
       <div
@@ -23,9 +30,8 @@
         @click="sendToDetails(animal.id)"
       >
         <AnimalPicture :animal="animal" />
-        <div>Name: {{ animal.name }}</div>
+        <div>{{ animal.name }} | {{ animal.species.name }}</div>
         <div>Adoption status: {{ animal.status.name }}</div>
-        <div>Animal species: {{ animal.species.name }}</div>
       </div>
     </div>
   </div>

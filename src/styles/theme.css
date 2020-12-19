@@ -56,11 +56,12 @@ label {
 }
 
 .card {
-  @apply m-4 p-4 border border-gray-500;
+  @apply m-4 p-4;
 }
 
 .bg-featured {
   background-color: #06d6a0;
+  border: 4px solid black;
 }
 
 .bg-secondary {
