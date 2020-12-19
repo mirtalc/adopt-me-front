@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-indigo-900 text-gray-400">
+  <div class="w-full fixed top-0 h-12 bg-indigo-900 text-gray-400 ">
     <ul class="flex">
       <!-- //REVIEW v-for! -->
       <NavigationLink

@@ -1,5 +1,5 @@
 <template>
-  <div class="page text-center text-2xl">
+  <div class="text-center text-2xl">
     <img
       src="../../assets/img/error-404.png"
       alt="not-found robot"

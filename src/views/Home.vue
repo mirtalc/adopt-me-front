@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="p-3">
     <div class="title">Available for adoption pets ^^</div>
     <div class="text-center text-sm sm:text-xl">
       <p>

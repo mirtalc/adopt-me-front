@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="p-3">
     <p class="title">
       All animals from our shelter
     </p>

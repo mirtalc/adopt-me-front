@@ -1,5 +1,5 @@
 <template>
-  <div class="page text-center">
+  <div class="text-center">
     <div class="my-8 text-2xl">
       Oops! An unexpected error happened.
     </div>

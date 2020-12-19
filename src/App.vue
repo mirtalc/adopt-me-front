@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <NavigationBar></NavigationBar>
-    <router-view />
+    <div class="page sm:p-6">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -16,4 +18,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.page {
+  max-width: 1000px;
+  @apply mx-auto mt-12;
+}
+</style>

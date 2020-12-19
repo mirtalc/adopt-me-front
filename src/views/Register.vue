@@ -1,5 +1,5 @@
 <template>
-  <div class="squared-container sm:max-w-xl sm:mx-auto sm:my-16 sm:rounded-2xl">
+  <div class="squared-container sm:max-w-xl sm:rounded-2xl">
     <p class="subtitle">Welcome to our web!<span class="ml-4"> ♥‿♥ </span></p>
     <p>Please, fill in these fields in order to create a new user.</p>
 
@@ -120,6 +120,7 @@ export default {
 .squared-container {
   @apply bg-teal-200;
 }
+
 button {
   @apply bg-teal-400;
 }
