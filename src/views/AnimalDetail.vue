@@ -3,7 +3,7 @@
     <LoadingSpinner v-if="isLoading" />
     <div
       v-else
-      class="border p-6 sm:max-w-2xl sm:mx-auto sm:my-16"
+      class="squared-container sm:max-w-2xl"
       :class="otherClasses(animal.status)"
     >
       <div class="flex text-2xl">
