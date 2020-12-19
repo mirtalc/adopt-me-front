@@ -5,23 +5,23 @@ import { fullApiEndpoints, apiEndpoints } from '@/constants/endpoints'
 import { routesInfo } from '@/constants/routesInfo'
 import store from '@/store'
 
-const instance = axios.create({
+const axios_instance = axios.create({
   baseURL: fullApiEndpoints.backendServer(),
   timeout: 1000
 })
 
-const instance_headers = axios.create({
+const axios_instance_with_headers = axios.create({
   baseURL: fullApiEndpoints.backendServer(),
   timeout: 1000
 })
 
-instance_headers.interceptors.request.use(config => {
+axios_instance_with_headers.interceptors.request.use(config => {
   const token = authUtils.getBearerToken()
   config.headers.Authorization = token
   return config
 })
 
-instance_headers.interceptors.response.use(
+axios_instance_with_headers.interceptors.response.use(
   response => response,
   error => {
     if (isRefreshTokenRelated(error)) {
@@ -83,5 +83,5 @@ function forceLogOut() {
   redirectToLogin()
 }
 
-export const http = instance
-export const http_headers = instance_headers
+export const http = axios_instance
+export const http_headers = axios_instance_with_headers

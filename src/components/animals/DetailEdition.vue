@@ -1,5 +1,15 @@
 <template>
   <div class="text-center">
+    <label for="picture" class="actionLabel py-1"
+      >Upload photo: {{ selectedPhoto }}</label
+    >
+    <input
+      type="file"
+      id="picture"
+      ref="file"
+      class="hidden"
+      @change="handleFileUpload()"
+    />
     <TextInput
       :name="'animalName'"
       :value="animalName"
@@ -19,6 +29,7 @@
       :options="assembleSelectOptions(adoptionStatuses)"
       @inputEvent="handleChange($event)"
     />
+
     <button class="big-button hover:bg-indigo-500" @click="clickSave()">
       Save changes
     </button>
@@ -42,7 +53,8 @@ export default {
     animalName: '',
     selectedSpecies: '',
     selectedStatus: '',
-    assembleSelectOptions
+    assembleSelectOptions,
+    file: ''
   }),
   props: {
     animal: {
@@ -54,11 +66,15 @@ export default {
     ...mapState({
       animalSpecies: state => state.species.all,
       adoptionStatuses: state => state.status.all
-    })
+    }),
+    selectedPhoto() {
+      return this.file ? this.file.name : ' ... '
+    }
   },
   methods: {
     ...mapActions({
-      updateAnimal: 'updateAnimal'
+      updateAnimal: 'updateAnimal',
+      updatePhoto: 'updatePhoto'
     }),
     discardEmitter() {
       this.$emit('discardEvent')
@@ -78,14 +94,16 @@ export default {
     processSubmitError() {
       this.$toast.error('Oops, something went wrong')
     },
-    clickSave() {
+    async clickSave() {
+      if (this.file) await this.submitFile()
+
       const payload = {
         id: this.animal.id,
         name: this.animalName,
         statusUid: this.selectedStatus,
         speciesUid: this.selectedSpecies
       }
-      this.updateAnimal(payload)
+      await this.updateAnimal(payload)
         .then(() => this.processSubmitOk())
         .catch(error => this.processSubmitError(error))
     },
@@ -96,6 +114,14 @@ export default {
           animalId: id
         }
       })
+    },
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0]
+    },
+    async submitFile() {
+      const formData = new FormData()
+      formData.append('file', this.file)
+      await this.updatePhoto({ itemId: this.animal.id, formData })
     }
   },
   beforeMount() {
@@ -106,7 +132,8 @@ export default {
 
 <style>
 input,
-select {
-  width: 100%;
+select,
+.actionLabel {
+  @apply w-full text-left;
 }
 </style>

@@ -87,6 +87,19 @@ export default {
           .then(response => resolve(response))
           .catch(error => reject(error))
       })
+    },
+    updatePhoto(context, { itemId, formData }) {
+      const url = `${apiEndpoints.animals}${itemId}/profilepic/`
+      return new Promise((resolve, reject) => {
+        http_headers
+          .patch(url, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then(response => resolve(response))
+          .catch(error => reject(error))
+      })
     }
   }
 }
