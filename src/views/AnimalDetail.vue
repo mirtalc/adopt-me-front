@@ -117,8 +117,9 @@ export default {
         .then(() => this.processDeleteOk())
         .catch(error => this.processDeleteError(error))
     },
-    reloadComponent() {
-      this.fetchDetails(this.animalId).then((this.editionMode = false))
+    async reloadComponent() {
+      await this.fetchDetails(this.animalId)
+      this.editionMode = false
     },
     otherClasses: status => (status ? bgChooser(status) : '')
   },

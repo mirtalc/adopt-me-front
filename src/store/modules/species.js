@@ -17,19 +17,11 @@ export default {
     }
   },
   actions: {
-    fetchAllSpecies({ commit }) {
-      let url = apiEndpoints.species
-
-      return new Promise((resolve, reject) => {
-        http_headers
-          .get(url)
-          .then(response => {
-            const assembledSpecies = assembleSpecies(response.data)
-            commit('setSpecies', assembledSpecies)
-            resolve()
-          })
-          .catch(error => reject(error))
-      })
+    async fetchAllSpecies({ commit }) {
+      const url = apiEndpoints.species
+      const response = await http_headers.get(url)
+      const assembledSpecies = assembleSpecies(response.data)
+      commit('setSpecies', assembledSpecies)
     }
   }
 }

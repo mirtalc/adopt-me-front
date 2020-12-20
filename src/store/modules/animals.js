@@ -32,73 +32,40 @@ export default {
     }
   },
   actions: {
-    animalCreate({ rootGetters }, formData) {
+    async animalCreate({ rootGetters }, formData) {
       const bodyParams = assembleAnimalBodyParams(rootGetters, formData)
-      return new Promise((resolve, reject) => {
-        http_headers
-          .post(apiEndpoints.animals, bodyParams)
-          .then(response => resolve(response))
-          .catch(error => reject(error))
-      })
+      await http_headers.post(apiEndpoints.animals, bodyParams)
     },
-    fetchAnimals({ commit }) {
-      return new Promise((resolve, reject) => {
-        http_headers
-          .get(apiEndpoints.animals)
-          .then(response => {
-            const assembledAnimals = assembleAllAnimals(response.data)
-            commit('setAnimals', assembledAnimals)
-            resolve(response)
-          })
-          .catch(error => reject(error))
-      })
+    async fetchAnimals({ commit }) {
+      const response = await http_headers.get(apiEndpoints.animals)
+      const assembledAnimals = assembleAllAnimals(response.data)
+      commit('setAnimals', assembledAnimals)
     },
-    fetchDetails({ commit }, itemId) {
-      let url = `${apiEndpoints.animals}${itemId}/`
-      return new Promise((resolve, reject) => {
-        http_headers
-          .get(url)
-          .then(response => {
-            const assembledCurrent = assembleCurrentAnimal({
-              id: itemId,
-              ...response.data
-            })
-            commit('setCurrent', assembledCurrent)
-            resolve(response)
-          })
-          .catch(error => reject(error))
-      })
-    },
-    deleteAnimal(context, itemId) {
+    async fetchDetails({ commit }, itemId) {
       const url = `${apiEndpoints.animals}${itemId}/`
-      return new Promise((resolve, reject) => {
-        http_headers
-          .delete(url)
-          .then(response => resolve(response))
-          .catch(error => reject(error))
+      const response = await http_headers.get(url)
+      const assembledCurrent = assembleCurrentAnimal({
+        id: itemId,
+        ...response.data
       })
+      commit('setCurrent', assembledCurrent)
     },
-    updateAnimal({ rootGetters }, payload) {
+    async deleteAnimal(context, itemId) {
+      const url = `${apiEndpoints.animals}${itemId}/`
+      await http_headers.delete(url)
+    },
+    async updateAnimal({ rootGetters }, payload) {
       const bodyParams = assembleAnimalBodyParams(rootGetters, payload)
       const url = `${apiEndpoints.animals}${payload.id}/`
-      return new Promise((resolve, reject) => {
-        http_headers
-          .patch(url, bodyParams)
-          .then(response => resolve(response))
-          .catch(error => reject(error))
-      })
+      await http_headers.patch(url, bodyParams)
     },
-    updatePhoto(context, { itemId, formData }) {
+    async updatePhoto(context, { itemId, formData }) {
       const url = `${apiEndpoints.animals}${itemId}/profilepic/`
-      return new Promise((resolve, reject) => {
-        http_headers
-          .patch(url, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then(response => resolve(response))
-          .catch(error => reject(error))
+      const headers = {
+        'Content-Type': 'multipart/form-data'
+      }
+      await http_headers.patch(url, formData, {
+        headers
       })
     }
   }

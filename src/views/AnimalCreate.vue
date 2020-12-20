@@ -90,14 +90,17 @@ export default {
       if (!this.selectedStatus)
         this.inputErrors.push('You must choose a valid adoption status')
     },
-    submit() {
-      this.animalCreate({
-        name: this.animalName,
-        statusUid: this.selectedStatus,
-        speciesUid: this.selectedSpecies
-      })
-        .then(() => this.processSubmitOk())
-        .catch(error => this.processSubmitError(error))
+    async submit() {
+      try {
+        await this.animalCreate({
+          name: this.animalName,
+          statusUid: this.selectedStatus,
+          speciesUid: this.selectedSpecies
+        })
+        this.processSubmitOk()
+      } catch (error) {
+        this.processSubmitError(error)
+      }
     },
     processSubmitOk() {
       this.$toast.success('Success! Animal registered')
@@ -113,14 +116,9 @@ export default {
       this.$router.push({ name: routesInfo.animals.name })
     }
   },
-  beforeMount() {
-    this.fetchAllSpecies()
-    this.fetchAllStatuses()
-  },
-  mounted() {
-    console.log('mounted')
-    console.log(this.adoptionStatuses)
-    console.log(this.animalSpecies)
+  async beforeMount() {
+    await this.fetchAllSpecies()
+    await this.fetchAllStatuses()
   }
 }
 </script>

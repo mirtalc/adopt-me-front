@@ -103,9 +103,12 @@ export default {
         statusUid: this.selectedStatus,
         speciesUid: this.selectedSpecies
       }
-      await this.updateAnimal(payload)
-        .then(() => this.processSubmitOk())
-        .catch(error => this.processSubmitError(error))
+      try {
+        await this.updateAnimal(payload)
+        this.processSubmitOk()
+      } catch (error) {
+        this.processSubmitError(error)
+      }
     },
     sendToDetails(id) {
       this.$router.push({

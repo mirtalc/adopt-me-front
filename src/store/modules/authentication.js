@@ -26,26 +26,17 @@ export default {
     }
   },
   actions: {
-    userLogin(context, credentials) {
-      return new Promise((resolve, reject) => {
-        http
-          .post(apiEndpoints.login, {
-            username: credentials.username,
-            password: credentials.password
-          })
-          .then(response => {
-            const tokens = {
-              access: response.data.access,
-              refresh: response.data.refresh
-            }
-            context.commit('setTokens', tokens)
-            authUtils.setTokensLocalStorage(tokens)
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
+    async userLogin(context, credentials) {
+      const response = await http.post(apiEndpoints.login, {
+        username: credentials.username,
+        password: credentials.password
       })
+      const tokens = {
+        access: response.data.access,
+        refresh: response.data.refresh
+      }
+      context.commit('setTokens', tokens)
+      authUtils.setTokensLocalStorage(tokens)
     },
     userLogout(context) {
       if (context.getters.isLogged) {
@@ -53,35 +44,19 @@ export default {
       }
       authUtils.deleteTokens()
     },
-    userRegister(context, credentials) {
-      return new Promise((resolve, reject) => {
-        http
-          .post(apiEndpoints.register, {
-            username: credentials.username,
-            password: credentials.password
-          })
-          .then(response => {
-            resolve(response)
-          })
-          .catch(error => {
-            reject(error)
-          })
+    async userRegister(context, credentials) {
+      await http.post(apiEndpoints.register, {
+        username: credentials.username,
+        password: credentials.password
       })
     },
-    renewTokens(context) {
-      return new Promise((resolve, reject) => {
-        const refreshToken = authUtils.getRefreshToken()
-        http_headers
-          .post(apiEndpoints.refresh, {
-            refresh: refreshToken
-          })
-          .then(response => {
-            context.commit('setAccessToken', response.data.access)
-            authUtils.setAccessToken(response.data.access)
-            resolve(response.data.access)
-          })
-          .catch(error => reject(error))
+    async renewTokens(context) {
+      const refreshToken = authUtils.getRefreshToken()
+      const response = await http_headers.post(apiEndpoints.refresh, {
+        refresh: refreshToken
       })
+      context.commit('setAccessToken', response.data.access)
+      authUtils.setAccessToken(response.data.access)
     }
   }
 }

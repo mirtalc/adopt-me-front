@@ -17,19 +17,11 @@ export default {
     }
   },
   actions: {
-    fetchAllStatuses({ commit }) {
-      let url = apiEndpoints.adoptionStatus
-
-      return new Promise((resolve, reject) => {
-        http_headers
-          .get(url)
-          .then(response => {
-            const assembledStatuses = assembleAdoptionStatuses(response.data)
-            commit('setStatuses', assembledStatuses)
-            resolve()
-          })
-          .catch(error => reject(error))
-      })
+    async fetchAllStatuses({ commit }) {
+      const url = apiEndpoints.adoptionStatus
+      const response = await http_headers.get(url)
+      const assembledStatuses = assembleAdoptionStatuses(response.data)
+      commit('setStatuses', assembledStatuses)
     }
   }
 }

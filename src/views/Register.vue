@@ -82,13 +82,16 @@ export default {
         this.inputErrors.push('Password must be at least 3 characters long')
       }
     },
-    register() {
-      this.userRegister({
-        username: this.username,
-        password: this.password
-      })
-        .then(() => this.processRegisterOk())
-        .catch(error => this.processRegisterError(error))
+    async register() {
+      try {
+        await this.userRegister({
+          username: this.username,
+          password: this.password
+        })
+        this.processRegisterOk()
+      } catch (error) {
+        this.processRegisterError(error)
+      }
     },
     processRegisterOk() {
       this.$toast.success('Success! You can log in now')

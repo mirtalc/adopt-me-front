@@ -83,13 +83,16 @@ export default {
       if (!this.password)
         this.inputErrors.push('Password field may not be empty')
     },
-    login() {
-      this.userLogin({
-        username: this.username,
-        password: this.password
-      })
-        .then(() => this.processLoginOk())
-        .catch(error => this.processLoginError(error))
+    async login() {
+      try {
+        await this.userLogin({
+          username: this.username,
+          password: this.password
+        })
+        this.processLoginOk()
+      } catch (error) {
+        this.processLoginError(error)
+      }
     },
     processLoginOk() {
       this.$toast.default('Welcome! ^^', { position: 'bottom' })
