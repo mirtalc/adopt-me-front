@@ -21,7 +21,7 @@ Here is an example of the error when refreshing the animal view (_animals-all_):
 
 It can be avoided at least in two ways:
 
-- Disabling history mode in Vue Router (workaround)
+- (Workaround) Disabling history mode in Vue Router
 
   We can prevent the error if we leave the Vue Router configuration by default (hash mode)
   This is made by removing the line `mode: 'history'` when creating the VueRouter instance (in @/router.js)
@@ -31,6 +31,21 @@ It can be avoided at least in two ways:
   And, of course, rebuilding the image and redeploying it (how-to at README.md)
 
 - Changing NGINX configuration
-  We are currently exploring this option in order to figure out **how** to change the NGINX image configuration **and which paramaters** to change.
 
-More info [here](https://router.vuejs.org/guide/essentials/history-mode.html).
+  This is the solution that we currently have applied. It's based on adding this configuration to the NGINX server (i.e. redirect to index.html all unknown URLS that would otherwise cause a 404 error):
+
+  ```
+  # [...]
+  location / {
+      # [...]
+      try_files $uri $uri/ /index.html;
+  }
+  ```
+
+We added a new file (nginx/default.conf) that replaces the configuration file from the container.
+
+The file is copied as stated in this Dockerfile line:
+`COPY ./nginx/default.conf /etc/nginx/conf.d/`
+
+More info about Vue Router modes [here](https://router.vuejs.org/guide/essentials/history-mode.html).
+More info about NGINX configuration [here](https://hub.docker.com/_/nginx), [here](http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files) and [here](https://www.docker.com/blog/how-to-use-the-official-nginx-docker-image/)
