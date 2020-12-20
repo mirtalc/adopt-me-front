@@ -97,16 +97,16 @@ export default {
           statusUid: this.selectedStatus,
           speciesUid: this.selectedSpecies
         })
-        this.processSubmitOk()
+        this.handleSubmitOk()
       } catch (error) {
-        this.processSubmitError(error)
+        this.handleSubmitError(error)
       }
     },
-    processSubmitOk() {
+    handleSubmitOk() {
       this.$toast.success('Success! Animal registered')
       this.redirectToAnimalList()
     },
-    processSubmitError(error) {
+    handleSubmitError(error) {
       this.$toast.error('Oops, something went wrong')
       this.submitError =
         'Unknown error; please try again later. More info at Console.'

@@ -89,16 +89,16 @@ export default {
           username: this.username,
           password: this.password
         })
-        this.processLoginOk()
+        this.handleLoginOk()
       } catch (error) {
-        this.processLoginError(error)
+        this.handleLoginError(error)
       }
     },
-    processLoginOk() {
+    handleLoginOk() {
       this.$toast.default('Welcome! ^^', { position: 'bottom' })
       this.redirectToHome()
     },
-    processLoginError(error) {
+    handleLoginError(error) {
       let error_code = error.response.data.error_code
       if (error_code == 'no_active_account') {
         this.loginError = 'Error: Incorrect user or password'

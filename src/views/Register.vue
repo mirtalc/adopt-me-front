@@ -88,16 +88,16 @@ export default {
           username: this.username,
           password: this.password
         })
-        this.processRegisterOk()
+        this.handleRegisterOk()
       } catch (error) {
-        this.processRegisterError(error)
+        this.handleRegisterError(error)
       }
     },
-    processRegisterOk() {
+    handleRegisterOk() {
       this.$toast.success('Success! You can log in now')
       this.redirectToLogin()
     },
-    processRegisterError(error) {
+    handleRegisterError(error) {
       let user_exists_error = 'A user with that username already exists'
       let error_string = JSON.stringify(error.response.data)
       if (error_string.includes(user_exists_error)) {

@@ -91,11 +91,11 @@ export default {
     redirectToAnimalList() {
       this.$router.push({ name: routesInfo.animals.name })
     },
-    processDeleteOk() {
+    handleDeleteOk() {
       this.$toast.success('Successfully deleted!')
       this.redirectToAnimalList()
     },
-    processDeleteError(error) {
+    handleDeleteError(error) {
       this.$toast.error('Oops, something went wrong')
       console.warn('Error while deleting animal: ', error)
     },
@@ -114,8 +114,8 @@ export default {
     confirmAction() {
       this.showConfirmation = false
       this.deleteAnimal(this.animalId)
-        .then(() => this.processDeleteOk())
-        .catch(error => this.processDeleteError(error))
+        .then(() => this.handleDeleteOk())
+        .catch(error => this.handleDeleteError(error))
     },
     async reloadComponent() {
       await this.fetchDetails(this.animalId)

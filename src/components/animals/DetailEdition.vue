@@ -87,11 +87,11 @@ export default {
       this.selectedSpecies = this.animal.species.uid
       this.selectedStatus = this.animal.status.uid
     },
-    processSubmitOk() {
+    handleSubmitOk() {
       this.$toast.success('Changes saved successfully!')
       this.$emit('editedEvent')
     },
-    processSubmitError() {
+    handleSubmitError() {
       this.$toast.error('Oops, something went wrong')
     },
     async clickSave() {
@@ -105,9 +105,9 @@ export default {
       }
       try {
         await this.updateAnimal(payload)
-        this.processSubmitOk()
+        this.handleSubmitOk()
       } catch (error) {
-        this.processSubmitError(error)
+        this.handleSubmitError(error)
       }
     },
     sendToDetails(id) {
