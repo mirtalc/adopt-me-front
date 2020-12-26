@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Cypress unneeded files
+cypress/videos
+cypress/screenshots
