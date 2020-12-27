@@ -98,8 +98,8 @@ export default {
       this.redirectToLogin()
     },
     handleRegisterError(error) {
-      let user_exists_error = 'A user with that username already exists'
-      let error_string = JSON.stringify(error.response.data)
+      const user_exists_error = 'A user with that username already exists'
+      const error_string = JSON.stringify(error.response.data)
       if (error_string.includes(user_exists_error)) {
         this.registerError = `Error: ${user_exists_error}. Try another one!`
       } else {

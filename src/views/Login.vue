@@ -99,7 +99,7 @@ export default {
       this.redirectToHome()
     },
     handleLoginError(error) {
-      let error_code = error.response.data.error_code
+      const error_code = error.response.data.error_code
       if (error_code == 'no_active_account') {
         this.loginError = 'Error: Incorrect user or password'
       } else {
