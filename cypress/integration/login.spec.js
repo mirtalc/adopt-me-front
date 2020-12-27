@@ -1,27 +1,43 @@
+import * as LoginPage from '../page-helpers/loginPage.js'
+
 describe('Login', () => {
-  it('Creating a New Post', () => {
-    cy.visit('/login')
+  let goodUserData, badUserData
 
-    // fill user field
-    cy.get('input[name=username]')
-      .clear()
-      .type('mirta')
+  before(() => {
+    cy.fixture('user/good-credentials').then(user => {
+      goodUserData = user
+    })
+    cy.fixture('user/bad-credentials').then(user => {
+      badUserData = user
+    })
+  })
 
-    // fill password
-    cy.get('input[name=password]')
-      .clear()
-      .type('0')
+  beforeEach(() => {
+    LoginPage.navigate()
+  })
 
-    // press login button
-    cy.get('button[type=submit]').click()
+  it('Successful login', () => {
+    const { username, password } = goodUserData
 
-    // check redirection after successful login
+    LoginPage.fillField('username', username)
+    LoginPage.fillField('password', password)
+    LoginPage.submit()
+
     cy.location('pathname').should(pathname => expect(pathname).to.eq('/'))
-
-    // check that view loaded is, in fact, the Home view
     cy.get('.title').should($title => {
       expect($title).to.exist
       expect($title).to.contain('Available for adoption pets')
     })
+  })
+
+  it('Failed login (incorrect credentials)', () => {
+    const { username, password } = badUserData
+
+    LoginPage.fillField('username', username)
+    LoginPage.fillField('password', password)
+    LoginPage.submit()
+
+    cy.location('pathname').should(pathname => expect(pathname).to.eq('/login'))
+    cy.contains('Error: Incorrect user or password').should.exist
   })
 })
