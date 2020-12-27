@@ -72,7 +72,7 @@ export default {
     checkAndLogin() {
       this.checkValues()
       this.hasInputErrors
-        ? this.$toast.error('Oops. Please, correct the mistakes below')
+        ? this.$toast.error('Please, correct the mistakes below')
         : this.login()
     },
     checkValues() {
@@ -99,6 +99,7 @@ export default {
       this.redirectToHome()
     },
     handleLoginError(error) {
+      this.$toast.error('Oops, something went wrong')
       const error_code = error.response.data.error_code
       if (error_code == 'no_active_account') {
         this.loginError = 'Error: Incorrect user or password'

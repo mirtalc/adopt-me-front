@@ -69,7 +69,7 @@ export default {
     checkAndRegister() {
       this.checkValues()
       this.hasInputErrors
-        ? this.$toast.error('Oops. Please, correct the mistakes below')
+        ? this.$toast.error('Please, correct the mistakes below')
         : this.register()
     },
     checkValues() {
@@ -98,6 +98,7 @@ export default {
       this.redirectToLogin()
     },
     handleRegisterError(error) {
+      this.$toast.error('Oops, something went wrong')
       const user_exists_error = 'A user with that username already exists'
       const error_string = JSON.stringify(error.response.data)
       if (error_string.includes(user_exists_error)) {
